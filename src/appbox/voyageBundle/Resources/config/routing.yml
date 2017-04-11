@@ -1,0 +1,3 @@
+appboxvoyage_homepage:
+    path:     /
+    defaults: { _controller: appboxvoyageBundle:Default:index }
