@@ -439,28 +439,4 @@ class voyage
     {
         return $this->image;
     }
-
-    /**
-     * Set typepromo
-     *
-     * @param string $typepromo
-     *
-     * @return voyage
-     */
-    public function setTypepromo($typepromo)
-    {
-        $this->typepromo = $typepromo;
-
-        return $this;
-    }
-
-    /**
-     * Get typepromo
-     *
-     * @return string
-     */
-    public function getTypepromo()
-    {
-        return $this->typepromo;
-    }
 }

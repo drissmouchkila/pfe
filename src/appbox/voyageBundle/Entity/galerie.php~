@@ -99,28 +99,4 @@ class galerie
     {
         return $this->voyage;
     }
-
-    /**
-     * Set principal
-     *
-     * @param boolean $principal
-     *
-     * @return galerie
-     */
-    public function setPrincipal($principal)
-    {
-        $this->principal = $principal;
-
-        return $this;
-    }
-
-    /**
-     * Get principal
-     *
-     * @return boolean
-     */
-    public function getPrincipal()
-    {
-        return $this->principal;
-    }
 }

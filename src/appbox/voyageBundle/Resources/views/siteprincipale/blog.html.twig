@@ -1,0 +1,43 @@
+
+{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% block contenaire %}
+    <div class="header-section header-section--with-banner parallax-section parallax-section--header">
+        <div class="parallax-image" style="background-image:url({{ asset('bundles/appboxvoyageBundle/image/green-mountains.jpg') }}); background-repeat:repeat;"></div>
+        <div class="container">
+            <div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li>Blog</li></ul></div>		<div class="header-section__content">
+                <h1 class="header-section__title">Blog</h1><p class="header-section__description">We share stories and give advice</p>		</div>
+        </div>
+    </div>
+    <div class="container layout-container margin-top margin-bottom">
+
+        <div class="row">
+            <main class="col-md-9" role="main">
+                {% for article in article %}
+                <article id="post-80" class="blog__item margin-bottom post-80 post type-post status-publish format-standard has-post-thumbnail sticky hentry category-safety tag-checklist tag-insurance" itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="blog__item__box">
+                        <div class="blog__item__info padding-top">
+                            <h2 class="blog__item__title padding-left padding-right" itemprop="headline"><a href="">{{ article.titre }}</a></h2>
+
+
+                            		<meta itemprop="url" content="../before-you-go/index.html">
+                            <span itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><meta itemprop="url" content="../../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/07/packing.jpg"><meta itemprop="width" content="1600"><meta itemprop="height" content="1000"></span><div class="blog__item__thumbnail"><a href=""><img width="1140" height="530" src="{{ asset('bundles/appboxvoyageBundle/image/'~article.url) }}" class="attachment-thumb_single size-thumb_single wp-post-image" alt="Packing" /></a></div>
+                            </div>
+
+
+                        <div class="blog__item__content  padding-all">
+                            <p>{{ article.description }}</p>
+                        </div>
+
+                        <div class="share-buttons" data-urlshare="http://adventure-tours.themedelight.com/before-you-go/" data-imageshare="../../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/07/packing.jpg"><div class="share-buttons__item share-buttons__item--googleplus" data-btntype="googlePlus"></div><div class="share-buttons__item share-buttons__item--facebook" data-btntype="facebook"></div><div class="share-buttons__item share-buttons__item--twitter" data-btntype="twitter"></div><div class="share-buttons__item share-buttons__item--stumbleupon" data-btntype="stumbleupon"></div><div class="share-buttons__item share-buttons__item--linkedin" data-btntype="linkedin"></div><div class="share-buttons__item share-buttons__item--pinterest" data-btntype="pinterest"></div><div class="share-buttons__item share-buttons__item--vk" data-btntype="vk"></div></div>		</div>
+
+                </article>
+                {% endfor %}
+                    </main>
+            <aside class="col-md-3 sidebar" role="complementary">
+                {{ include("appboxvoyageBundle::treevoyagewest.html.twig") }}
+
+            </aside>
+        </div>
+
+    </div><!-- .container -->
+{% endblock %}

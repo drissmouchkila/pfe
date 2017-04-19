@@ -5,8 +5,13 @@
     {% block stylesheet %}{% endblock %}
 </head>
 <body>
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+
+{% for liste in list %}
+
+    voyage:{{ liste.id }}
+    {{ liste.nbrplacetotal }}
+    {{ liste.nbrplacereser }}
+{% endfor %}
+
 </body>
 </html>

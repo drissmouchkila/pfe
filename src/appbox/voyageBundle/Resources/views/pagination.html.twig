@@ -1,0 +1,32 @@
+{% if pagination.nbrpages > 0 %}
+    <div class="margin-top">
+        <div class="navigation">
+            <div class="navigation__content">
+                <div class="navigation__item  {% if pagination.page == 1 %}navigation__prev navigation__item--disable{% endif %}">
+                    {% if pagination.page == 1 %}
+                        <span class="prev page-numbers"><i class="fa fa-angle-left"></i></span>
+                    {% else %}
+                        <a class="prev page-numbers" href="{{ path(pagination.path,{'page':pagination.page-1}) }}"><i class="fa fa-angle-left"></i></a>
+                    {% endif %}
+                </div>
+                {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.nbrpages)) %}
+                    <div class="navigation__items">
+                        <div class="navigation__item">
+                            <a href="{{ path(pagination.path,{'page': p}) }}" class='page-numbers {% if p == pagination.page %}current{% endif %}'>{{ p }}</a>
+                        </div>
+
+                    </div>
+                {% endfor %}
+                <div class="navigation__item navigation__next {% if pagination.page == pagination.nbrpages %}navigation__item--disable{% endif %}">
+                    {% if pagination.page == pagination.nbrpages %}
+                        <span class="next page-numbers"><i class="fa fa-angle-right"></i></span>
+                    {% else %}
+                        <a class="next page-numbers" href="{{ path(pagination.path,{'page':pagination.page+1}) }}">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

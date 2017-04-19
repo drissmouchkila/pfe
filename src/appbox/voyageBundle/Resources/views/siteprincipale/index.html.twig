@@ -1,0 +1,253 @@
+{% extends "appboxvoyageBundle::basepage.html.twig" %}
+
+{% block contenaire %}
+
+
+    <div class="container layout-container margin-top margin-bottom" >
+
+        <div class="page-single">
+            <main class="page-single__content" role="main">
+              <div class="vc_row wpb_row vc_row-fluid">
+              <div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner ">
+              <div class="wpb_wrapper">
+              <div id="swiper1" class="atgrid atgrid--with-image padding-top-large padding-bottom-large margin-bottom-large">
+                                    <div class="atgrid__bg" style="background:url({{ asset('bundles/appboxvoyageBundle/image/most-popular-bg.jpg') }} ) no-repeat center"></div>
+                                    <div class="title title--big title--center title--decoration-bottom-center">
+                                        <div class="title__subtitle">Take a Look at Our</div>
+                                        <h3 class="title__primary">Most Popular Tours</h3>
+                                    </div>
+                                    <div class="atgrid__slider">
+                                        <div class="atgrid__slider__controls">
+                                            <a class="atgrid__slider__prev" href="#"><i class="fa fa-chevron-left"></i></a>
+                                            <a class="atgrid__slider__next" href="#"><i class="fa fa-chevron-right"></i></a>
+                                        </div>
+
+                                        <div class="swiper-container swiper-slider atgrid__slider__container">
+
+                                            <div class="swiper-wrapper">
+                                            {% for voyage in voyage %}
+                                                <div class="swiper-slide">
+                                                    <div class="atgrid__item">
+                                                        <div class="atgrid__item__top">
+                                                            <a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__top__image">
+                                                            <img width="360" height="240" src="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}} " class="attachment-thumb_tour_listing_small size-thumb_tour_listing_small wp-post-image" alt="Surfer"   sizes="(max-width: 360px) 100vw, 360px" /></a>
+                                                            	 {% if voyage.promo == 1 %}
+                                                            	<div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offer</div></div>
+                                                            		{% endif %}
+                                                            		<div class="atgrid__item__price"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__price__button">
+                                                            		{% if voyage.promo == 1 %}
+                                                            		<del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.newprix}}</span></del>
+                                                            		{% endif %}
+                                                            		<ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.prix }}</span></ins>
+                                                            		</a></div>
+                                                        </div>
+
+                                                        <div class="atgrid__item__content">
+                                                            <h3 class="atgrid__item__title"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}">{{ voyage.titre }}</a></h3>
+                                                            <div class="atgrid__item__description"> {{ voyage.description }}</div>
+                                                        </div>
+                                                        <div class="item-attributes">
+                                                            <div class="item-attributes__item"><div class="item-attributes__item__content"><div class="item-attributes__item__content__item"><i class="td-clock-2"></i></div><div class="item-attributes__item__content__item item-attributes__item__content__item--text"><span>{{ voyage.nbrRoute }}</span></div></div></div><div class="item-attributes__item"><div class="item-attributes__item__content"><div class="item-attributes__item__content__item"><i class="td-barbell"></i></div><div class="item-attributes__item__content__item item-attributes__item__content__item--text"><span>{{ voyage.nbrplacereser }}/{{ voyage.nbrplacetotal }}</span></div></div></div>							<div class="item-attributes__item">
+                                                                <a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="item-attributes__link"><i class="fa fa-long-arrow-right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               {% endfor %}
+                                            </div><!-- .swiper-wrapper -->
+                                        </div><!-- .swiper-container -->
+
+                                    </div><!-- .atgrid__slider  -->
+                                </div><!-- .atgrid -->
+
+                                <div class="atgrid margin-bottom-large tour-list-home atgrid--small">
+                                    <div class="title-block-link title-block-link--with-button">
+                                        <div class="title-block-link__text-wrap">
+                                            <h3 class="title-block-link__title">Promo</h3>
+                                            <div class="title-block-link__description">Sagittis vulputate magna sagittis sagittis erat feugiat nullam cubilia amet dignissim Euismod.</div>
+                                        </div>
+                                        <div class="title-block-link__button-wrap">
+                                            <a href="{{ path("promopath") }}" class="atbtn atbtn--rounded" >View More<i class="atbtn__icon atbtn__icon--right fa fa-long-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="row atgrid__row">
+                                    {% for vpromo in vpromo %}
+                                        <div class="col-md-3 col-xs-6 atgrid__item-wrap">
+                                            <div class="atgrid__item">
+                                                <div class="atgrid__item__top">
+                                                    <a href="{{ path('circuitpath',{'id' : vpromo.id}) }}" class="atgrid__item__top__image"><img width="360" height="240" src="{{ asset('bundles/appboxvoyageBundle/image/'~vpromo.image) }}" class="attachment-thumb_tour_listing_small size-thumb_tour_listing_small wp-post-image" alt="Costa Rica Waterfall" sizes="(max-width: 360px) 100vw, 360px" /></a>
+                                                    <a href="{{ path('circuitpath',{'id' : vpromo.id}) }}" class="price-round" style="background-color:#01cb68"><span class="price-round__content"><del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ vpromo.prix }}</span></del> <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ vpromo.newprix }}</span></ins></span></a>
+                                                </div>
+                                                <div class="atgrid__item__content">
+                                                    <h3 class="atgrid__item__title"><a href="{{ path('circuitpath',{'id' : vpromo.id}) }}">{{ vpromo.titre }}</a></h3>
+                                                    <div class="atgrid__item__description">{{ vpromo.description }}</div>
+                                                </div>
+                                                <div class="item-attributes">
+                                                    <div class="item-attributes__item"><div class="item-attributes__item__content"><div class="item-attributes__item__content__item"><i class="td-clock-2"></i></div><div class="item-attributes__item__content__item item-attributes__item__content__item--text"><span>{{ vpromo.nbrRoute }} days</span></div></div></div><div class="item-attributes__item"><div class="item-attributes__item__content"><div class="item-attributes__item__content__item"><i class="td-barbell"></i></div><div class="item-attributes__item__content__item item-attributes__item__content__item--text"><span>{{ vpromo.nbrplacereser }}/{{ vpromo.nbrplacetotal }}</span></div></div></div>					<div class="item-attributes__item"><a href="{{ path('circuitpath',{'id' : vpromo.id}) }}" class="item-attributes__link"><i class="fa fa-long-arrow-right"></i></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      {% endfor %}
+                                    </div>
+
+                                </div>
+                                <div id="swiper2" class="tours-type section-white">
+                                    <div class="title title--big title--center title--underline title--decoration-bottom-center">
+                                        <div class="title__subtitle">Find a Tour by</div>
+                                        <h3 class="title__primary">Destination</h3>
+                                    </div>
+                                    <div class="tours-type__slider">
+                                        <div class="tours-type__slider__controls">
+                                            <a class="tours-type__slider__prev" href="#"><i class="fa fa-chevron-left"></i></a>
+                                            <a class="tours-type__slider__next" href="#"><i class="fa fa-chevron-right"></i></a>
+                                        </div>
+
+                                        <div class="swiper-container swiper-slider">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide tours-type__item">
+                                                    <a href="tour-category/brazil/index.html" class="tours-type__item__image"><img src="../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/08/brazil-south-america-531x354.jpg" alt="Brazil" width="531" height="354" /></a>
+                                                    <div class="tours-type__item__title">Brazil</div>
+                                                </div>
+                                                <div class="swiper-slide tours-type__item">
+                                                    <a href="tour-category/canada/index.html" class="tours-type__item__image"><img src="../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/07/moraine-lake-with-boat-531x354.jpg" alt="Canada" width="531" height="354" /></a>
+                                                    <div class="tours-type__item__title">Canada</div>
+                                                </div>
+                                                <div class="swiper-slide tours-type__item">
+                                                    <a href="tour-category/costa-rica/index.html" class="tours-type__item__image"><img src="../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/08/costa-rica-with-arenal-volcano-531x354.jpg" alt="Costa Rica" width="531" height="354" /></a>
+                                                    <div class="tours-type__item__title">Costa Rica</div>
+                                                </div>
+                                                <div class="swiper-slide tours-type__item">
+                                                    <a href="tour-category/usa/index.html" class="tours-type__item__image"><img src="../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/07/niagara-falls-531x354.jpg" alt="USA" width="531" height="354" /></a>
+                                                    <div class="tours-type__item__title">USA</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="swiper3" class="tours-type-icons padding-top-large padding-bottom-large">
+                                    <div class="tours-type-icons__bg" style="background:url({{ asset('bundles/appboxvoyageBundle/image/mountain-690104_1920-optimized.jpg') }}) no-repeat center"></div>
+                                    <div class="tours-type-icons__shadow"></div>
+                                    <div class="tours-type-icons__content">
+                                        <div class="title title--big title--center title--underline title--light title--underline-light title--decoration-bottom-center">
+                                            <div class="title__subtitle">Find a Tour by</div>
+                                            <h3 class="title__primary">Tour Type</h3>
+                                        </div>
+                                        <div class="tours-type-icons__slider">
+                                            <div class="tours-type-icons__slider__controls">
+                                                <a class="tours-type-icons__slider__prev" href="#"><i class="fa fa-chevron-left"></i></a>
+                                                <a class="tours-type-icons__slider__next" href="#"><i class="fa fa-chevron-right"></i></a>
+                                            </div>
+                                            <div class="swiper-container swiper-slider">
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide tours-type-icons__item">
+                                                        <a href="{{ path('types',{'type' : 'Air Rides'}) }}" class="tours-type-icons__item__container">
+							<span class="tours-type-icons__item__content">
+								<i class="td-hot-air"></i>Air Rides							</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide tours-type-icons__item">
+                                                        <a href="{{ path('types',{'type':'Cruises'}) }}" class="tours-type-icons__item__container">
+							<span class="tours-type-icons__item__content">
+								<i class="td-ship-1"></i>Cruises							</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide tours-type-icons__item">
+                                                        <a href="{{ path('types',{'type':'Hiking'}) }}" class="tours-type-icons__item__container">
+							<span class="tours-type-icons__item__content">
+								<i class="td-backpack"></i>Hiking							</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide tours-type-icons__item">
+                                                        <a href="{{ path('types',{'type':'Sport'}) }}" class="tours-type-icons__item__container">
+							<span class="tours-type-icons__item__content">
+								<i class="td-soccer-ball"></i>Sports							</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide tours-type-icons__item">
+                                                        <a href="{{ path('types',{'type':'Walking'}) }}" class="tours-type-icons__item__container">
+							<span class="tours-type-icons__item__content">
+								<i class="td-footprint"></i>Walking							</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="swiper-slide tours-type-icons__item">
+                                                        <a href="{{ path('types',{'type':'Wildlife'}) }}" class="tours-type-icons__item__container">
+							<span class="tours-type-icons__item__content">
+								<i class="td-bear"></i>Wildlife							</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></div></div></div>
+              <div class="vc_row wpb_row vc_row-fluid section-white padding-top-large padding-bottom">
+                   <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-md-6">
+                                 <div class="vc_column-inner ">
+                                 <div class="wpb_wrapper">
+                                   <div class="last-posts">
+                                   <div class="title title--center title--underline title--decoration-bottom-center">
+		                              <h3 class="title__primary">Latest Post</h3>
+                                   </div>
+                                       {% for blogindex in blogindex %}
+		                           <div class="last-posts__item last-posts__item--with-images">
+		                              <div class="last-posts__item__container">
+		                                   <a href="" class="last-posts__item__image-wrap"><img width="1140" height="760" src="{{ asset('bundles/appboxvoyageBundle/image/'~blogindex.url) }}" class="attachment-thumb_last_posts_shortcode size-thumb_last_posts_shortcode wp-post-image" alt="Packing"  sizes="(max-width: 1140px) 100vw, 1140px" /></a>
+		                                   	<div class="last-posts__item__content">
+			                            	<h3 class="last-posts__item__title"><a href="">{{ blogindex.titre }}</a></h3>
+				                             <div class="last-posts__item__description">{{ blogindex.description }}</div>
+				                             <a href="{{ path('blogpath') }}" class="atbtn atbtn--rounded atbtn--medium atbtn--light">Read more<i class="atbtn__icon atbtn__icon--right fa fa-long-arrow-right"></i></a>
+		                                   	</div>
+		                              </div>
+	                               </div>
+
+	                               </div>
+                                     {% endfor %}
+                             </div>
+                              </div>
+                               </div></div>
+              <div class="vc_row wpb_row vc_row-fluid">
+                                <div class="wpb_column vc_column_container vc_col-sm-12">
+                                    <div class="vc_column-inner "><div class="wpb_wrapper"><div class="form-subscribe parallax-section stick-to-bottom form-subscribe--full-width">
+                                    <div class="parallax-image" style="background-image:url(../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/09/mountain-river-optimized2.jpg); background-repeat:repeat;"></div>
+                                    <div class="form-subscribe__shadow"></div>
+                                    <div class="form-subscribe__title">Join the Newsletter</div><div class="form-subscribe__description">To receive our best monthly deals</div><div id="adventure-tours-mainchimp-form-4" class="form-subscribe__form-wrap">
+                                        <section id="yikes-mailchimp-container-1" class="yikes-mailchimp-container yikes-mailchimp-container-1 ">
+                                            <form id="adventure-tours-1" class="yikes-easy-mc-form yikes-easy-mc-form-1  " action="#" method="POST" data-attr-form-id="1">
+
+                                                <label for="EMAIL"  class="EMAIL-label yikes-mailchimp-field-required">
+
+                                                    <!-- dictate label visibility -->
+																					<span class="EMAIL-label">
+												Email Address											</span>
+
+                                                    <input id="yikes-easy-mc-form-1-EMAIL"  name="EMAIL"  placeholder="Your Email"  class="yikes-easy-mc-email "  required="required" type="email"  value=""/>
+
+                                                    <!-- description -->
+                                                    <p class="form-field-description"><small></small></p>
+                                                </label>
+
+                                                <!-- Honepot Trap -->
+                                                <input type="hidden" name="yikes-mailchimp-honeypot" id="yikes-mailchimp-honeypot" value=""/>
+
+                                                <!-- List ID -->
+                                                <input type="hidden" name="yikes-mailchimp-associated-list-id" id="yikes-mailchimp-associated-list-id" value="30f6464174"/>
+
+                                                <!-- Form that is being submitted! Used to display error/success messages above the correct form -->
+                                                <input type="hidden" name="yikes-mailchimp-submitted-form" id="yikes-mailchimp-submitted-form" value="1"/>
+
+                                                <!-- Submit Button -->
+                                                <button type="submit" class="yikes-easy-mc-submit-button yikes-easy-mc-submit-button-1 btn btn-primary ">Subscribe</button>				<!-- Nonce Security Check -->
+                                                <input type="hidden" id="yikes_easy_mc_new_subscriber" name="yikes_easy_mc_new_subscriber" value="30a264da35" /><input type="hidden" name="_wp_http_referer" value="/" />
+                                            </form>
+                                            <!-- MailChimp Form generated using Easy Forms for MailChimp v6.0.4.2 by YIKES, Inc. (https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) -->
+
+                                        </section>
+                                    </div></div>
+                            </div></div></div></div>
+            </main>
+        </div>
+
+    </div><!-- .container -->
+{% endblock %}

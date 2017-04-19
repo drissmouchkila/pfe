@@ -1,0 +1,87 @@
+{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% block contenaire %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header-section padding-left padding-right">
+                    <div class="header-section__content header-section__content--breadcrumbs">
+                        <div class="header-section__title-wrap--breadcrumbs"><h1 class="header-section__title">Circuits :{{ type }}</h1></div><div class="breadcrumbs-wrap"><div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li>Circuits</li></ul></div></div>				</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container layout-container margin-top margin-bottom">
+
+
+        <div class="row">
+            <main class="col-md-9" role="main">
+
+
+
+
+                <div class="atgrid">
+                    <div class="row atgrid__row">
+                        {% for voyage in voyage %}
+                            <div class="col-md-6 col-xs-6 atgrid__item-wrap">
+                                <div class="atgrid__item">
+                                    <div class="atgrid__item__top">
+                                        <a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__top__image"><img width="720" height="480" src="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}}" class="attachment-thumb_tour_listing size-thumb_tour_listing wp-post-image" alt="Alaska Lake"  sizes="(max-width: 720px) 100vw, 720px" /></a>
+                                        {% if voyage.typepromo == 'Earley Bird' %}
+                                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#01cb68">Early Bird</div></div>
+                                        {% endif %}
+                                        {% if voyage.typepromo == 'Last Munite' %}
+                                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Last Munite</div></div>
+                                        {% endif %}
+                                        {% if voyage.typepromo == 'special offre' %}
+                                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offre</div></div>
+                                        {% endif %}
+                                        <div class="atgrid__item__price"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__price__button">
+                                                {% if voyage.promo == 1 %}
+                                                    <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.newprix }}</span></del>
+                                                {% endif %}
+                                                <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.prix }}</span></ins>
+                                            </a></div>
+                                    </div>
+                                    <div class="atgrid__item__content">
+                                        <h3 class="atgrid__item__title"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}">{{ voyage.titre }}</a></h3>
+                                        <div class="atgrid__item__description">{{ voyage.description }}</div>
+                                    </div>
+                                    <div class="item-attributes">
+                                        <div class="item-attributes__item"><div class="item-attributes__item__content"><div class="item-attributes__item__content__item"><i class="td-clock-2"></i></div><div class="item-attributes__item__content__item item-attributes__item__content__item--text"><span>{{ voyage.nbrRoute }} Jour</span></div></div></div><div class="item-attributes__item"><div class="item-attributes__item__content"><div class="item-attributes__item__content__item"><i class="td-barbell"></i></div><div class="item-attributes__item__content__item item-attributes__item__content__item--text"><span>{{ voyage.nbrplacereser }}/{{ voyage.nbrplacetotal }}</span></div></div></div>					<div class="item-attributes__item"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="item-attributes__link"><i class="fa fa-long-arrow-right"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {{ include("appboxvoyageBundle::paginationtype.html.twig") }}
+            </main>
+            <aside class="col-md-3 sidebar" role="complementary">
+                <div class="form-block block-after-indent form-block--vertical">
+                    <h3 class="form-block__title">Cherche circuit </h3>
+
+                    <div class="form-block__description">Find your dream tour today!</div>
+
+                    <form method="get" action="">
+
+                        <div class="form-block__item form-block__field-width-icon">
+                            <input type="text" placeholder="Search Tour" value="" name="s">
+                            <i class="td-search-1"></i>
+                        </div>
+
+                        <div class="form-block__item form-block__field-width-icon">
+                            <input type="text" placeholder="Destination" value="" name="d">
+                            <i class="td-globe"></i>
+                        </div>
+                        <div class="form-block__item form-block__field-width-icon">
+                            <input type="text" placeholder="Tour Type" value="" name="t">
+                            <i class="td-network"></i></div>
+                        <button type="submit" class="atbtn atbtn--full-width atbtn--primary">Find Tours</button>
+                    </form>
+                </div>
+                {{ include("appboxvoyageBundle::treevoyagewest.html.twig") }}
+
+            </aside>
+        </div>
+    </div><!-- .container -->
+{% endblock %}
