@@ -1,11 +1,11 @@
-{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% extends "appboxvoyageBundle::basepage.html.twig"  %}
 {% block contenaire %}
-    <div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
         <div class="row">
             <div class="col-md-12">
                 <div class="header-section padding-left padding-right">
                     <div class="header-section__content header-section__content--breadcrumbs">
-                        <div class="header-section__title-wrap--breadcrumbs"><h1 class="header-section__title">Circuits : Promo</h1></div><div class="breadcrumbs-wrap"><div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li>Circuits</li></ul></div></div>				</div>
+                        <div class="header-section__title-wrap--breadcrumbs"><h1 class="header-section__title">Circuits </h1></div><div class="breadcrumbs-wrap"><div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li>Circuits</li></ul></div></div>				</div>
                 </div>
             </div>
         </div>
@@ -13,11 +13,13 @@
     <div class="container layout-container margin-top margin-bottom">
 
 
-        <div class="row"><main class="col-md-9" role="main">
-
-
-
-
+        <div class="row">
+            <main class="col-md-9" role="main">
+                {% if voyage is empty %}
+                  <blockquote><p>
+                      No products were found matching your selection.
+                  </p></blockquote>
+                {% else %}
                 <div class="atgrid">
                     <div class="row atgrid__row">
                         {% for voyage in voyage %}
@@ -25,13 +27,13 @@
                                 <div class="atgrid__item">
                                     <div class="atgrid__item__top">
                                         <a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__top__image"><img width="720" height="480" src="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}}" class="attachment-thumb_tour_listing size-thumb_tour_listing wp-post-image" alt="Alaska Lake"  sizes="(max-width: 720px) 100vw, 720px" /></a>
-                                        {% if voyage.typepromo == 'Early Bird' %}
+                                        {% if voyage.typepromo == 'Earley Bird' %}
                                             <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#01cb68">Early Bird</div></div>
                                         {% endif %}
                                         {% if voyage.typepromo == 'Last Munite' %}
                                             <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Last Munite</div></div>
                                         {% endif %}
-                                        {% if voyage.typepromo == 'Special offre' %}
+                                        {% if voyage.typepromo == 'special offre' %}
                                             <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offre</div></div>
                                         {% endif %}
                                         <div class="atgrid__item__price"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__price__button">
@@ -53,10 +55,34 @@
                         {% endfor %}
                     </div>
                 </div>
-                {{ include("appboxvoyageBundle::pagination.html.twig") }}
+                {% endif %}
 
+                {{ include("appboxvoyageBundle::pagination.html.twig") }}
             </main>
             <aside class="col-md-3 sidebar" role="complementary">
+                <div class="form-block block-after-indent form-block--vertical">
+                    <h3 class="form-block__title">Cherche circuit </h3>
+
+                    <div class="form-block__description">Find your dream tour today!</div>
+
+                    {{ form_start(form) }}
+                    <input type="hidden" name="toursearch" value="1">
+
+
+                    <div class="form-block__item form-block__field-width-icon">
+                        {{ form_widget(form.nom, {'attr': {"placeholder":"Search Tour","value":"","name":"s"}}) }}
+                        <i class="td-search-1"></i>
+                    </div>
+
+                    <div class="form-block__item form-block__field-width-icon">
+                        {{ form_widget(form.destination, {'attr': {"placeholder":"Destination","value":"","name":"d"}}) }}
+                        <i class="td-globe"></i></div>
+                    <div class="form-block__item form-block__field-width-icon">
+                        {{ form_widget(form.type, {'attr': {"placeholder":"Type Tour","value":"","name":"t"}}) }}
+                        <i class="td-network"></i></div>
+                    {{ form_widget(form.save, {'attr': {'class': 'atbtn atbtn--full-width atbtn--primary','value':'recherche'}}) }}
+                    {{ form_end(form) }}
+                </div>
                 {{ include("appboxvoyageBundle::treevoyagewest.html.twig") }}
 
             </aside>

@@ -31,9 +31,15 @@
                                                         <div class="atgrid__item__top">
                                                             <a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__top__image">
                                                             <img width="360" height="240" src="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}} " class="attachment-thumb_tour_listing_small size-thumb_tour_listing_small wp-post-image" alt="Surfer"   sizes="(max-width: 360px) 100vw, 360px" /></a>
-                                                            	 {% if voyage.promo == 1 %}
-                                                            	<div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offer</div></div>
-                                                            		{% endif %}
+                                                            {% if voyage.typepromo == 'Early Bird' %}
+                                                                <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#01cb68">Early Bird</div></div>
+                                                            {% endif %}
+                                                            {% if voyage.typepromo == 'Last Munite' %}
+                                                                <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Last Munite</div></div>
+                                                            {% endif %}
+                                                            {% if voyage.typepromo == 'Special offre' %}
+                                                                <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offre</div></div>
+                                                            {% endif %}
                                                             		<div class="atgrid__item__price"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__price__button">
                                                             		{% if voyage.promo == 1 %}
                                                             		<del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.newprix}}</span></del>
@@ -104,22 +110,13 @@
 
                                         <div class="swiper-container swiper-slider">
                                             <div class="swiper-wrapper">
+                                                {% for vdesti in vdestination %}
                                                 <div class="swiper-slide tours-type__item">
-                                                    <a href="tour-category/brazil/index.html" class="tours-type__item__image"><img src="../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/08/brazil-south-america-531x354.jpg" alt="Brazil" width="531" height="354" /></a>
-                                                    <div class="tours-type__item__title">Brazil</div>
+                                                    <a href="" class="tours-type__item__image"><img src=" {{ asset('bundles/appboxvoyageBundle/image/'~vdesti.image) }}" alt="Brazil" width="531" height="354" /></a>
+                                                    <div class="tours-type__item__title">{{ vdesti.destination }}</div>
                                                 </div>
-                                                <div class="swiper-slide tours-type__item">
-                                                    <a href="tour-category/canada/index.html" class="tours-type__item__image"><img src="../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/07/moraine-lake-with-boat-531x354.jpg" alt="Canada" width="531" height="354" /></a>
-                                                    <div class="tours-type__item__title">Canada</div>
-                                                </div>
-                                                <div class="swiper-slide tours-type__item">
-                                                    <a href="tour-category/costa-rica/index.html" class="tours-type__item__image"><img src="../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/08/costa-rica-with-arenal-volcano-531x354.jpg" alt="Costa Rica" width="531" height="354" /></a>
-                                                    <div class="tours-type__item__title">Costa Rica</div>
-                                                </div>
-                                                <div class="swiper-slide tours-type__item">
-                                                    <a href="tour-category/usa/index.html" class="tours-type__item__image"><img src="../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/07/niagara-falls-531x354.jpg" alt="USA" width="531" height="354" /></a>
-                                                    <div class="tours-type__item__title">USA</div>
-                                                </div>
+                                                    {% endfor %}
+
 
                                             </div>
                                         </div>
@@ -209,38 +206,28 @@
                                </div></div>
               <div class="vc_row wpb_row vc_row-fluid">
                                 <div class="wpb_column vc_column_container vc_col-sm-12">
-                                    <div class="vc_column-inner "><div class="wpb_wrapper"><div class="form-subscribe parallax-section stick-to-bottom form-subscribe--full-width">
-                                    <div class="parallax-image" style="background-image:url(../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/09/mountain-river-optimized2.jpg); background-repeat:repeat;"></div>
-                                    <div class="form-subscribe__shadow"></div>
-                                    <div class="form-subscribe__title">Join the Newsletter</div><div class="form-subscribe__description">To receive our best monthly deals</div><div id="adventure-tours-mainchimp-form-4" class="form-subscribe__form-wrap">
-                                        <section id="yikes-mailchimp-container-1" class="yikes-mailchimp-container yikes-mailchimp-container-1 ">
-                                            <form id="adventure-tours-1" class="yikes-easy-mc-form yikes-easy-mc-form-1  " action="#" method="POST" data-attr-form-id="1">
+                                    <div class="vc_column-inner ">
+                                        <div class="wpb_wrapper">
+                                            <div class="form-subscribe parallax-section stick-to-bottom form-subscribe--full-width">
+                                              <div class="parallax-image" style="background-image:url(../cdn2-adventure-tours.themedelight.com/wp-content/uploads/2015/09/mountain-river-optimized2.jpg); background-repeat:repeat;"></div>
+                                              <div class="form-subscribe__shadow"></div>
+                                              <div class="form-subscribe__title">Join the Newsletter</div>
+                                                <div class="form-subscribe__description">To receive our best monthly deals</div>
+                                                <div id="adventure-tours-mainchimp-form-4" class="form-subscribe__form-wrap">
+                                                   <section id="yikes-mailchimp-container-1" class="yikes-mailchimp-container yikes-mailchimp-container-1 ">
+                                                      <form id="adventure-tours-1" class="yikes-easy-mc-form yikes-easy-mc-form-1  " action="#" method="POST" data-attr-form-id="1">
+                                                          <label for="EMAIL"  class="EMAIL-label yikes-mailchimp-field-required">
+                                                              <!-- dictate label visibility --><span class="EMAIL-label">Email Address</span>
+                                                              <input id="yikes-easy-mc-form-1-EMAIL"  name="EMAIL"  placeholder="Your Email"  class="yikes-easy-mc-email "  required="required" type="email"  value=""/>
+                                                               <!-- description -->
+                                                              <p class="form-field-description"><small></small></p>
+                                                          </label>
 
-                                                <label for="EMAIL"  class="EMAIL-label yikes-mailchimp-field-required">
 
-                                                    <!-- dictate label visibility -->
-																					<span class="EMAIL-label">
-												Email Address											</span>
-
-                                                    <input id="yikes-easy-mc-form-1-EMAIL"  name="EMAIL"  placeholder="Your Email"  class="yikes-easy-mc-email "  required="required" type="email"  value=""/>
-
-                                                    <!-- description -->
-                                                    <p class="form-field-description"><small></small></p>
-                                                </label>
-
-                                                <!-- Honepot Trap -->
-                                                <input type="hidden" name="yikes-mailchimp-honeypot" id="yikes-mailchimp-honeypot" value=""/>
-
-                                                <!-- List ID -->
-                                                <input type="hidden" name="yikes-mailchimp-associated-list-id" id="yikes-mailchimp-associated-list-id" value="30f6464174"/>
-
-                                                <!-- Form that is being submitted! Used to display error/success messages above the correct form -->
-                                                <input type="hidden" name="yikes-mailchimp-submitted-form" id="yikes-mailchimp-submitted-form" value="1"/>
-
-                                                <!-- Submit Button -->
-                                                <button type="submit" class="yikes-easy-mc-submit-button yikes-easy-mc-submit-button-1 btn btn-primary ">Subscribe</button>				<!-- Nonce Security Check -->
-                                                <input type="hidden" id="yikes_easy_mc_new_subscriber" name="yikes_easy_mc_new_subscriber" value="30a264da35" /><input type="hidden" name="_wp_http_referer" value="/" />
-                                            </form>
+                                                          <!-- Submit Button -->
+                                                          <button type="submit" class="yikes-easy-mc-submit-button yikes-easy-mc-submit-button-1 btn btn-primary ">Subscribe</button>				<!-- Nonce Security Check -->
+                                                          <input type="hidden" id="yikes_easy_mc_new_subscriber" name="yikes_easy_mc_new_subscriber" value="30a264da35" /><input type="hidden" name="_wp_http_referer" value="/" />
+                                                      </form>
                                             <!-- MailChimp Form generated using Easy Forms for MailChimp v6.0.4.2 by YIKES, Inc. (https://wordpress.org/plugins/yikes-inc-easy-mailchimp-extender/) -->
 
                                         </section>

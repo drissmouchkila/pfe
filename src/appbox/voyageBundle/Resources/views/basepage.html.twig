@@ -44,6 +44,7 @@
     <style id='rs-plugin-settings-inline-css' type='text/css'>
         .tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}
     </style>
+
     <link rel='stylesheet' id='theme-font-google-fonts-css'  href='http://fonts.googleapis.com/css?family=Oxygen%3A400normal%2C700normal%7CKaushan+Script%3A400normal&amp;ver=4.6.1' type='text/css' media='all' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <script type='text/javascript'>
@@ -51,6 +52,7 @@
         var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View Cart","cart_url":"http:\/\/adventure-tours.themedelight.com\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
         /* ]]> */
     </script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <meta name="generator" content="WordPress 4.6.1" />
     <meta name="generator" content="WooCommerce 2.6.4" />
     {% javascripts filter='?jsqueeze' 'bundles/appboxvoyageBundle/js/*' %}
@@ -95,6 +97,68 @@
             }
         }
     </style>
+
+    <style type="text/css">
+        #login-dp{
+            min-width: 250px;
+            padding: 14px 14px 0;
+            overflow:hidden;
+            background-color:rgba(255,255,255,.8);
+        }
+        #login-dp .help-block{
+            font-size:12px
+        }
+        #login-dp .bottom{
+            background-color:rgba(255,255,255,.8);
+            border-top:1px solid #ddd;
+            clear:both;
+            padding:14px;
+        }
+        #login-dp .social-buttons{
+            margin:12px 0
+        }
+        #login-dp .social-buttons a{
+            width: 30%;
+        }
+        #login-dp .form-group {
+            margin-bottom: 10px;
+        }
+        .btn-fb{
+            color: #fff;
+            background-color:#3b5998;
+        }
+        .btn-fb:hover{
+            color: #fff;
+            background-color:#496ebc
+        }
+        .btn-tw{
+            color: #fff;
+            background-color:#55acee;
+        }
+        .btn-tw:hover{
+            color: #fff;
+            background-color:#59b5fa;
+        }
+        .btn-gplus{
+            color: #fff;
+            background-color:#d34836;
+        }
+        .btn-gplus:hover{
+            color: #fff;
+            background-color:#d9534f;
+        }
+        @media(max-width:768px) {
+            #login-dp {
+                background-color: inherit;
+                color: #fff;
+            }
+
+            #login-dp .bottom {
+                background-color: inherit;
+                border-top: 0 none;
+            }
+        }
+    </style>
     <meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress."/>
     <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://cdn-adventure-tours.themedelight.com/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--><!--[if IE  8]><link rel="stylesheet" type="text/css" href="http://cdn-adventure-tours.themedelight.com/wp-content/plugins/js_composer/assets/css/vc-ie8.min.css" media="screen"><![endif]--><meta name="generator" content="Powered by Slider Revolution 5.0.6 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface." />
     <noscript><style type="text/css"> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
@@ -115,21 +179,62 @@
                 <div class="header__info__items-left"><div class="header__info__item header__info__item--phone"><i class="fa fa-phone"></i>+1 420-240-6000</div><div class="header__info__item header__info__item--clock"><i class="fa fa-clock-o"></i>{{ "now"|date("F jS \\a\\t g:ia") }}</div></div>
 
                 <div class="header__info__items-right">
-                    <div class="header__info__item header__info__item--delimiter header__info__item--social-icons"><a href="http://facebook.com/"><i class="fa fa-facebook"></i></a><a href="http://twitter.com/"><i class="fa fa-twitter"></i></a><a href="http://plus.google.com/"><i class="fa fa-google-plus"></i></a><a href="http://pinterest.com/"><i class="fa fa-pinterest"></i></a><a href="http://instagram.com/"><i class="fa fa-instagram"></i></a><a href="http://tumblr.com/"><i class="fa fa-tumblr"></i></a></div>		<div class="header__info__item header__info__item--delimiter header__info__item--shoping-cart">
-                        <a href="/index">
-                            <i class="fa fa-shopping-cart"></i>
+                    <div class="header__info__item header__info__item--delimiter header__info__item--social-icons"><a href="http://facebook.com/"><i class="fa fa-facebook"></i></a><a href="http://twitter.com/"><i class="fa fa-twitter"></i></a><a href="http://plus.google.com/"><i class="fa fa-google-plus"></i></a><a href="http://pinterest.com/"><i class="fa fa-pinterest"></i></a><a href="http://instagram.com/"><i class="fa fa-instagram"></i></a><a href="http://tumblr.com/"><i class="fa fa-tumblr"></i></a></div>
+                    <div class="header__info__item header__info__item--delimiter header__info__item--shoping-cart">
+                        <a href="#authe_form" class="popup-search-form" data-effect="mfp-zoom-in">
+                            Se connecter
                         </a>
                     </div>
-                    <div class="header__info__item header__info__item--delimiter header__info__item--search"><a href="#search-form-header" class="popup-search-form" data-effect="mfp-zoom-in"><i class="fa fa-search"></i></a></div>
+                    <div class="header__info__item header__info__item--delimiter header__info__item--search">
+                        <a href="#search-form-header" class="popup-search-form" data-effect="mfp-zoom-in">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    <div id="authe_form" class="search-form-popup search-form-popup--hide mfp-with-anim mfp-hide ">
+                        <ul id="login-dp" style="list-style-type:none ">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Login via
+                                        <div class="social-buttons">
+                                            <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                                            <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                                            <a href="#" class="btn btn-gplus"><i class="fa fa-google-plus"></i> Google+</a>
+                                        </div>
+                                        or
+                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="bottom text-center">
+                                        New here ? <a href="#"><b>Join Us</b></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
 
                     <div id="search-form-header" class="search-form-popup search-form-popup--hide mfp-with-anim mfp-hide ">
-                        <form role="search" method="get" class="search-form" action="http://adventure-tours.themedelight.com/">
+                        {{ form_start(form2, {'attr': {'class': 'search-form'}}) }}
                             <label>
                                 <span class="screen-reader-text">Search for:</span>
-                                <input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+                                {{ form_widget(form2.nom, {'attr': {'class': 'search-field','placeholder':"Search &hellip;",'value':"",'name':"s"}}) }}
                             </label>
-                            <input type="submit" class="search-submit" value="Search" />
-                        </form></div>
+                        {{ form_widget(form2.save, {'attr': {'class': 'search-submit'}}) }}
+                        {{ form_end(form2) }}
+                    </div>
                 </div>
             </div>
             <div class="header__content-wrap">

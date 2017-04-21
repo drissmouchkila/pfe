@@ -29,6 +29,11 @@ class voyageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
 
     }
+    public function indexdestination(){
+        $qb = $this->createQueryBuilder('v');
+        $qb->groupBy('v.destination');
+        return $qb->getQuery()->getResult();
+    }
     public function treevoyage()
     {
         $qb = $this->createQueryBuilder('v');
@@ -144,5 +149,37 @@ class voyageRepository extends \Doctrine\ORM\EntityRepository
 
         return $paginator;
     }
+    public function recherchepagination($page,$nbrmaxvoyage,$nom,$destination,$type){
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
 
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        $qb = $this->createQueryBuilder('v')
+            ->orderBy('v.datefin', 'ASC');
+         if($nom){
+             $qb->where('v.titre LIKE :nom')->setParameter('nom','%'.$nom.'%');
+         }if($destination){
+            $qb->where('v.destination = :nom')->setParameter('nom',$destination);
+        }if($type){
+            $qb->where('v.type = :nom')->setParameter('nom',$type);
+        }
+
+        $query = $qb->getQuery();
+
+        $premierResultat = ($page - 1) * $nbrmaxvoyage;
+        $query->setFirstResult($premierResultat)->setMaxResults($nbrmaxvoyage);
+        $paginator = new Paginator($query);
+
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+
+        return $paginator;
+    }
 }
