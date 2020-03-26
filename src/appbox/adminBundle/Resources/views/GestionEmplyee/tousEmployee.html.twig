@@ -1,0 +1,64 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+
+{% endblock %}
+{% block contenaire %}
+    <!-- Page Content -->
+
+    <div class="row bg-title" xmlns="http://www.w3.org/1999/html">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Les agents</h4> </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">University</a></li>
+                    <li class="active">Professors</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    <!-- .row -->
+    <div class="row">
+        {% for employee in employee %}
+            {% if  employee.UserId != 43 %}
+        <div class="col-md-4 col-sm-4">
+            <div class="white-box">
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <a href="{{ path('employeepath',{'id':employee.id}) }}"><img src="{{ asset('bundles/appboxvoyageBundle/image/'~employee.image) }}" alt="user" class="img-circle img-responsive"></a>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <div style="float: right"><a href="{{ path('suppemployeepath',{'id':employee.id}) }}"><i class="fa fa-close text-danger"></i></a></div>
+                        <a href="{{ path('employeepath',{'id':employee.id}) }}"><h3 class="box-title m-b-0"><span><i class="ti-user"></i>  {{ employee.name }}</span></h3></a>
+                        <p>
+                        <address>
+                            <span><i class="ti-home"></i> {{ employee.adress }} </span>
+                            <br/>
+                            <span><i class="ti-car"></i>  nombre de voyage : {{ employee.nbrvoyage }}</span>
+                            <br/>
+                            <span><i class="ti-clipboard"></i>  nombre de bloc : {{ employee.nbrbloc }}</span>
+                            <br/>
+                            <br/>
+                            <span>  Prise total: {{ employee.totalargent }} <span class="woocommerce-Price-currencySymbol">$</span></span>
+                            <br/>
+                            <span>  Etat: {{ employee.etat }} </span>
+                            <br/>
+                            <br/>
+                            <abbr title="Phone"><span><i class="ti-mobile"></i>  Telephone:</span></abbr> {{ employee.phone }}
+                        </address>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+                {% endif %}
+        {% endfor %}
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+{% endblock %}
+{% block javascriptepersonnaliser %}
+{% endblock %}

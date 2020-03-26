@@ -1,0 +1,80 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+    <link rel="stylesheet" href="{{  asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/css/dropify.min.css')}}">
+{% endblock %}
+{% block contenaire %}
+    {{ form_start(form, {'attr': {'class': 'form-material form-horizontal'}}) }}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <div class="form-group">
+                    <label class="col-md-12" for="example-text">Nom
+                    </label>
+                    <div class="col-md-12">
+                        {{ form_widget(form.titre, {'attr': {'class': 'form-control','placeholder':'Titre d\'artice','id':'example-text'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-12">Description</label>
+                    <div class="col-md-12">
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control ','rows':3}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12">Profile Image</label>
+                    <div class="col-sm-12">
+                        {{ form_widget(form.url, {'attr': {'class': 'dropify','id':'input-file-now','data-default-file': asset('bundles/appboxvoyageBundle/image/'~galerie.url)}}) }}
+                    </div>
+                </div>
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-info waves-effect waves-light m-r-10','label':'enregistrer'},'label':'enregistré'}) }}
+
+                
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <!-- jQuery file upload -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.dropify').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'Désolé, le fichier trop volumineux'
+                }
+            });
+
+            // Used events
+            var drEvent = $('#input-file-events').dropify();
+
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+
+            drEvent.on('dropify.errors', function(event, element) {
+                console.log('Has Errors');
+            });
+
+            var drDestroy = $('#input-file-to-destroy').dropify();
+            drDestroy = drDestroy.data('dropify')
+            $('#toggleDropify').on('click', function(e) {
+                e.preventDefault();
+                if (drDestroy.isDropified()) {
+                    drDestroy.destroy();
+                } else {
+                    drDestroy.init();
+                }
+            })
+        });
+    </script>
+{% endblock %}

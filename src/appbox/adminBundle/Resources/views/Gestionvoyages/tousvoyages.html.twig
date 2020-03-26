@@ -1,0 +1,132 @@
+{% extends "::Baseadmin.html.twig" %}
+
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Liste des circuitst</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('adminpath') }}">Index</a></li>
+                <li class="active">Liste des produits</li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <div class="table-responsive">
+                    <table class="table product-overview" id="myTable">
+                        <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>CircuitID</th>
+                            <th>Nombre de place</th>
+                            <th>Nombre de reservation</th>
+                            <th>Nombre de jour</th>
+                            <th>Destination</th>
+                            <th>Date debut</th>
+                            <th>Promo</th>
+                            <th>Etat</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for voyage in voyage %}
+                        <tr>
+                            <td><a href="{{ path('seulvoyagepath',{id:voyage.id}) }}"> {{ voyage.titre }}</a></td>
+                            <td>{{ voyage.id }}</td>
+                            <td> {{ voyage.nbrplacetotal }} </td>
+                            <td>{{ voyage.nbrplacereser }}</td>
+                            <td>{{ voyage.nbrRoute }}</td>
+                            <td>{{ voyage.destination }}</td>
+                            <td>{{ voyage.datedebut|date("d-m-Y") }}</td>
+                            <td>
+                                {% if voyage.typepromo == 'Early Bird' %}
+                                <span class="label label-success font-weight-100">Early Bird</span>
+                                {% endif %}
+                                {% if voyage.typepromo == 'special offre' %}
+                                    <span class="label label-danger font-weight-100">offre special</span>
+                                {% endif %}
+                                {% if voyage.promo == 0 %}
+                                    <span class="label label-default font-weight-100">Aucun</span>
+                                {% endif %}
+
+                            </td>
+                            <td>
+                                {% if voyage.typed == 'Dernier munite' %}
+                                    <span class="label label-megna font-weight-100">Dernier munite</span>
+                                {% elseif voyage.typed == 'week-end' %}
+                                    <span class="label label-custom font-weight-100">Week-end</span>
+                                    {% else %}
+                                    <span class="label label-default font-weight-100">Normal</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ path('modcircuitpath',{'id':voyage.id}) }}" class="text-inverse p-r-10" data-toggle="tooltip" title="Modifier">
+                                    <i class="ti-marker-alt"></i>
+                                </a>
+                                {% if voyage.nbrplacereser != 0 %}
+                                <span  class="text-inverse" title="Supprimer" data-toggle="tooltip">
+                                    <i class="ti-trash"></i>
+                                </span>
+                                {% else %}
+                                    <a href="{{ path('suppvoyagepath',{'voyage': voyage.id}) }}" class="text-inverse" title="Supprimer" data-toggle="tooltip">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--row -->
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+            $(document).ready(function() {
+                var table = $('#example').DataTable({
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 2
+                    }],
+                    "order": [
+                        [2, 'asc']
+                    ],
+                    "displayLength": 25,
+                    "drawCallback": function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({
+                            page: 'current'
+                        }).nodes();
+                        var last = null;
+                        api.column(2, {
+                            page: 'current'
+                        }).data().each(function(group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                                last = group;
+                            }
+                        });
+                    }
+                });
+                // Order by the grouping
+                $('#example tbody').on('click', 'tr.group', function() {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                        table.order([2, 'desc']).draw();
+                    } else {
+                        table.order([2, 'asc']).draw();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

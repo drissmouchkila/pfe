@@ -1,11 +1,13 @@
 
-{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% extends "::basepage.html.twig" %}
+{% block title %}Blog{% endblock %}
 {% block contenaire %}
     <div class="header-section header-section--with-banner parallax-section parallax-section--header">
         <div class="parallax-image" style="background-image:url({{ asset('bundles/appboxvoyageBundle/image/green-mountains.jpg') }}); background-repeat:repeat;"></div>
         <div class="container">
             <div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li>Blog</li></ul></div>		<div class="header-section__content">
-                <h1 class="header-section__title">Blog</h1><p class="header-section__description">We share stories and give advice</p>		</div>
+                <h1 class="header-section__title">Blog</h1><p class="header-section__description">Nous partageons des histoires et donnons des conseils
+                </p>		</div>
         </div>
     </div>
     <div class="container layout-container margin-top margin-bottom">

@@ -1,0 +1,3 @@
+appboxadmin_homepage:
+    path:     /
+    defaults: { _controller: appboxadminBundle:Default:index }

@@ -17,6 +17,12 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new appbox\voyageBundle\appboxvoyageBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new appbox\UserBundle\appboxUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Payum\Bundle\PayumBundle\PayumBundle(),
+            new appbox\adminBundle\appboxadminBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

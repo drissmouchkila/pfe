@@ -1,0 +1,62 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+    <!-- Dropzone css -->
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropzone-master/dist/dropzone.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contenaire %}
+
+    <div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Ajouter galerie</h4> </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('adminpath') }}">Index</a></li>
+            <li class="active">Ajoutergalerie</li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+    </div>
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="box-title m-b-0">Ajoutee les images </h3>
+                {% if voyage is empty %}
+                    <p>Pas de voyage déjà terminé</p>
+                    {% else %}
+                <form action="{{ path('dropezone') }}" class="dropzone" id="form_snippet_image">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Circuit</label>
+                                <select  name="circuit" class="form-control" data-placeholder="Choose a Category" tabindex="1">
+                                    {% for voyage in voyage %}
+                                    <option value="{{ voyage.id }}">{{ voyage.titre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+
+
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <!-- Dropzone Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminbundle/plugins/bower_components/dropzone-master/dist/dropzone.js') }}"></script>
+    <script>
+        var _actionToDropZone = $("#form_snippet_image").attr('action');
+
+        //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#form_snippet_image", {
+            url: _actionToDropZone,
+            maxFiles: 100
+        });
+        myDropzone.on("addedfile", function(file) {
+            alert('nouveau fichier reçu');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<div class="block-after-indent widget-atgrid-without-title">
+    <div id="tours_adventure_tours-4" class="widget block-after-indent widget_tours_adventure_tours">
+        <div class="atgrid--widget">
+            <div class="atgrid atgrid--small">
+                {% for voyage in voyagewest %}
+                <div class="atgrid__item">
+                    <div class="atgrid__item__top">
+                        <a href="{{ path('circuitpath',{'id' : voyage.id}) }}"><img width="270" height="180" src="{{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}" class="attachment-thumb_tour_widget size-thumb_tour_widget wp-post-image" alt="Costa Rica Waterfall"  sizes="(max-width: 270px) 100vw, 270px" /></a>
+                        {% if voyage.typepromo == 'Early Bird' %}
+                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#01cb68">Early Bird</div></div>
+                        {% endif %}
+                        {% if voyage.typepromo == 'Last Munite' %}
+                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Last Munite</div></div>
+                        {% endif %}
+                        {% if voyage.typepromo == 'Special offre' %}
+                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offre</div></div>
+                        {% endif %}
+                        <div class="atgrid__item__price"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__price__button">
+                                {% if voyage.promo == '1' %}
+                                <del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.newprix }}</span></del>
+                               {% endif %}
+                                <ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{{ voyage.prix }}</span></ins>
+                            </a></div>
+                        <h4 class="atgrid__item__top__title"><a href="{{ path('circuitpath',{'id' : voyage.id}) }}">{{ voyage.titre }}</a></h4>
+                    </div>
+                </div>
+                 {% endfor %}
+            </div><!-- .atgrid -->
+        </div><!-- .atgrid widget -->
+    </div></div>

@@ -2,11 +2,14 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@appboxadminBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    brochures_directory: '%kernel.root_dir%/../web/bundles/appboxvoyageBundle/image'
+    recu_directory: '%kernel.root_dir%/../web/bundles/appboxvoyageBundle/recu'
 
 framework:
     #esi: ~
@@ -40,7 +43,7 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'bootstrap_3_layout.html.twig'
-
+    charset: UTF8
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -66,6 +69,8 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
+    encryption: ssl
+    auth_mode:  login
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
@@ -78,3 +83,79 @@ assetic:
       jsqueeze:   ~
       scssphp:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+
+fos_user:
+  db_driver: orm
+  firewall_name: main
+  user_class: appbox\UserBundle\Entity\User
+  from_email:
+          address: ayoublaw123@gmail.com
+          sender_name: You
+  registration:
+          confirmation:
+              from_email:
+                  address:        ayoublaw123@gmail.com
+                  sender_name:    Appboxvoyage
+              enabled: true
+              template:   FOSUserBundle:Registration:email.html.twig
+  resetting:
+          email:
+              from_email:
+                  address:        ayoublaw123@gmail.com
+                  sender_name:    You
+              template:   FOSUserBundle:Resetting:email.txt.twig
+  service:
+          mailer: fos_user.mailer.twig_swift
+hwi_oauth:
+    http_client:
+        verify_peer: false
+    connect:
+        confirmation: true
+        registration_form: fos_user.registration.form.factory
+    firewall_names: [main]
+    fosub:
+        username_iterations: 30
+        properties:
+            facebook: facebookid
+            google: googleid
+            twitter: twitterid
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           "1953389668224703"
+            client_secret:       "b32a45772ed667fdc90166efb3273b3d"
+            scope:               "email"
+        google:
+            type:                google
+            client_id:           "869826766433-jk62mvv5uirsshc4i11agiuo225qr25u.apps.googleusercontent.com"
+            client_secret:       "LYtb5ALGbQxpASQOHdpZwshD"
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+        twitter:
+            type:                twitter
+            client_id:           "6VnVv2uQCcFnblLAEwGfuL3sT"
+            client_secret:       "hvsIGclEJDgQOK6H1Op7X9RPeBLYo6FI3TEDiNG7sbqD8xtRKZ"
+            infos_url:           "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
+        options:    []
+    image:
+        enabled:    true
+        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
+        options:    []
+payum:
+    security:
+        token_storage:
+            appbox\voyageBundle\Entity\PaymentToken: { doctrine: orm }
+
+    storages:
+        appbox\voyageBundle\Entity\Payment: { doctrine: orm }
+
+    gateways:
+        paiement_paypal:
+                    factory: paypal_express_checkout
+                    username:  ayoublaw123_api1.gmail.com
+                    password:  FQSJ7GXF88AMTH5H
+                    signature: AFcWxV21C7fd0v3bYYYRCpSSRl31Agbzi3OIoVDXwMMcuk7xWEvAUbnj
+                    sandbox: true

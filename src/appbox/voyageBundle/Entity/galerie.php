@@ -3,6 +3,7 @@
 namespace appbox\voyageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Tests\StringableObject;
 
 /**
@@ -25,6 +26,9 @@ class galerie
      * @var String
      *
      * @ORM\Column(name="url", type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $url;
 
@@ -35,13 +39,6 @@ class galerie
      */
     private $voyage;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="principal",type="boolean")
-     *
-     */
-    private $principal;
     /**
      * Get id
      *

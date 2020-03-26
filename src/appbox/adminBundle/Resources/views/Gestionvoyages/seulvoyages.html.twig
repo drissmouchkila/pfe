@@ -1,0 +1,250 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block title %}
+    <title>Liste des réservations de circuit: {{ voyage.titre }}</title>
+    <style>
+        .timeline2{list-style:none;padding:0 0 20px;position:relative;margin-top:-15px}.timeline2:before{top:30px;bottom:25px;position:absolute;content:" ";width:3px;background-color:#ccc;left:25px;margin-right:-1.5px}.timeline2>li,.timeline2>li>.timeline-panel{margin-bottom:5px;position:relative}.timeline2>li:after,.timeline2>li:before{content:" ";display:table}.timeline2>li:after{clear:both}.timeline2>li>.timeline-panel{margin-left:55px;float:left;top:19px;padding:4px 10px 8px 15px;border:1px solid #ccc;border-radius:5px;width:45%}.timeline2>li>.timeline-badge{color:#fff;width:36px;height:36px;line-height:36px;font-size:1.2em;text-align:center;position:absolute;top:26px;left:9px;margin-right:-25px;background-color:#fff;z-index:100;border-radius:50%;border:1px solid #d4d4d4}.timeline2>li.timeline-inverted>.timeline-panel{float:left}.timeline2>li.timeline-inverted>.timeline-panel:before{border-right-width:0;border-left-width:15px;right:-15px;left:auto}.timeline2>li.timeline-inverted>.timeline-panel:after{border-right-width:0;border-left-width:14px;right:-14px;left:auto}.timeline-badge.primary{background-color:#2e6da4!important}.timeline-badge.success{background-color:#3f903f!important}.timeline-badge.warning{background-color:#f0ad4e!important}.timeline-badge.danger{background-color:#d9534f!important}.timeline-badge.info{background-color:#5bc0de!important}.timeline-title{margin-top:0;color:inherit}.timeline-body>p,.timeline-body>ul{margin-bottom:0;margin-top:0}.timeline-body>p+p{margin-top:5px}.timeline-badge>.glyphicon{margin-right:0px;color:#fff}.timeline-body>h4{margin-bottom:0!important}
+    </style>
+    {% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{  asset('bundles/appboxadminBundle/css/style2.css')}}">
+{% endblock %}
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Circuit:{{ voyage.titre }}</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="#">Index</a></li>
+                <li class="active">circuit</li>
+            </ol>
+        </div>
+    </div>
+   <div >
+    <div class="white-box">
+        <!-- .tabs -->
+        <ul class="nav nav-tabs tabs customtab">
+            <li class="active tab">
+                <a href="#home" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Réservations</span> </a>
+            </li>
+            <li class="tab">
+                <a href="#biography" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Route</span> </a>
+            </li>
+            <li class="tab">
+                <a href="#update" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Galerie</span> </a>
+            </li>
+            <li class="tab">
+                <a href="#email" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Envoyer Email</span> </a>
+            </li>
+        </ul>
+        <!-- /.tabs -->
+        <div class="tab-content">
+            <!-- .tabs 1 -->
+            <div class="tab-pane active" id="home">
+
+                    <div class="row row-in">
+                        <div class="col-lg-3 col-sm-6 row-in-br">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="ti-user"></i>
+                                    <h5 class="text-muted vb">Nombre de réservation</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-danger">{{ voyage.nbrplacereser }}</h3> </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    {% set total= (voyage.nbrplacereser*100)/voyage.nbrplacetotal %} <span class="text-danger">{{ total }}%</span>
+                                    <div class="progress">
+
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ total }}%"> <span class="sr-only">{{ total }}% Complete (success)</span> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="ti-money"></i>
+                                    <h5 class="text-muted vb">Total d'argent</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-info">{{ voyage.totalargentvoyage }}</h3> </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 row-in-br">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="ti-eye"></i>
+                                    <h5 class="text-muted vb">Nombre de vue</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-success">{{ voyage.nbrvue }}</h3> </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6  b-0">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="ti-comments"></i>
+                                    <h5 class="text-muted vb">Nombre de commentaires</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-warning">{{ voyage.nbrcommentaires }}</h3> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                <h3 class="box-title m-b-0">Liste des réservations</h3>
+                <div class="table-responsive">
+                    <table id="example23" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Num</th>
+                            <th>Nom</th>
+                            <th>address</th>
+                            <th>telephone</th>
+                            <th>nbr de personne</th>
+                            <th>Date de reservation</th>
+                            <th>Type de paiement</th>
+                            <th>Etat de paiement</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reser in reservation %}
+                        <tr>
+                            <td>{{ reser.id }}</td>
+                            <td>{{ reser.nom }} {{ reser.prenom }}</td>
+                            <td>{{ reser.address }}</td>
+                            <td>{{ reser.telephone }}</td>
+                            <td>{{ reser.nbrpersonne }}</td>
+                            <td>{{ reser.datemettreres|date('d/m/Y') }}</td>
+                            <td>{{ reser.typepaiement }}</td>
+                            <td>
+                                {{ reser.paiement }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- /.tabs1 -->
+            <!-- .tabs 2 -->
+            <div class="tab-pane" id="biography">
+                <ul class="timeline2">
+                    {% for route in route %}
+                    <li>
+                        <div class="timeline-badge "></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Route {{ route.numjour }}
+                                    {% if loop.last %} Retourne{% endif %}{% if loop.first %}Depart{% endif %}
+                                </h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{ route.description }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <!-- /.tabs2 -->
+            <!-- .tabs 3 -->
+            <div class="tab-pane" id="update">
+                <div class="white-box">
+                <div class="col-md-12">
+                <img width="1000" height="400" src="{{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}" class="attachment-full size-full wp-post-image" alt="Costa Rica Waterfall"  />
+                </div>
+                <hr>
+                <div>
+                    {% for galerie in galerie %}
+                    <div class="col-md-3">
+                        <img width="250" src="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="attachment-full size-full wp-post-image" alt="Costa Rica Waterfall"  />
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+
+            <!-- /.tabs 3 -->
+            <!-- .tabs 4 -->
+            <div class="tab-pane" id="email">
+                <div class="white-box">
+                <div class=" mail_listing">
+                    <h3 class="box-title">Composer un Email</h3>
+                    <form method="POST">
+                        <div class="form-group">
+                            <input name="objet" class="form-control" placeholder="Objet:" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="text" class="textarea_editor form-control" rows="15" placeholder="Entre texte ..." required></textarea>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Envoyer</button>
+
+                    </form>
+                </div>
+                </div>
+            </div>
+
+            <!-- /.tabs 4 -->
+        </div>
+    </div>
+   </div>
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+            $(document).ready(function() {
+                var table = $('#example').DataTable({
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 2
+                    }],
+                    "order": [
+                        [2, 'asc']
+                    ],
+                    "displayLength": 25,
+                    "drawCallback": function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({
+                            page: 'current'
+                        }).nodes();
+                        var last = null;
+
+                        api.column(2, {
+                            page: 'current'
+                        }).data().each(function(group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before(
+                                        '<tr class="group"><td colspan="5">' + group + '</td></tr>'
+                                );
+
+                                last = group;
+                            }
+                        });
+                    }
+                });
+
+                // Order by the grouping
+                $('#example tbody').on('click', 'tr.group', function() {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                        table.order([2, 'desc']).draw();
+                    } else {
+                        table.order([2, 'asc']).draw();
+                    }
+                });
+            });
+        });
+        $('#example23').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    </script>
+{% endblock %}

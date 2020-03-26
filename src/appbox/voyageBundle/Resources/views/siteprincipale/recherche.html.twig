@@ -1,4 +1,4 @@
-{% extends "appboxvoyageBundle::basepage.html.twig"  %}
+{% extends "::basepage.html.twig"  %}
 {% block contenaire %}
 <div class="container" xmlns="http://www.w3.org/1999/html">
         <div class="row">
@@ -17,7 +17,7 @@
             <main class="col-md-9" role="main">
                 {% if voyage is empty %}
                   <blockquote><p>
-                      No products were found matching your selection.
+                          Aucun circuit n'a été trouvé .
                   </p></blockquote>
                 {% else %}
                 <div class="atgrid">
@@ -63,7 +63,7 @@
                 <div class="form-block block-after-indent form-block--vertical">
                     <h3 class="form-block__title">Cherche circuit </h3>
 
-                    <div class="form-block__description">Find your dream tour today!</div>
+                    <div class="form-block__description">Trouvez votre tour de rêve aujourd'hui!</div>
 
                     {{ form_start(form) }}
                     <input type="hidden" name="toursearch" value="1">
@@ -75,12 +75,25 @@
                     </div>
 
                     <div class="form-block__item form-block__field-width-icon">
-                        {{ form_widget(form.destination, {'attr': {"placeholder":"Destination","value":"","name":"d"}}) }}
-                        <i class="td-globe"></i></div>
+                        <select name="destination" class="selectpicker">
+                            <option value="" selected="selected">Destination</option>
+                            {% for vdest in vdestination %}
+                                <option value="{{ vdest.destination }}">{{ vdest.destination }}</option>
+                            {% endfor %}
+                        </select><i class="td-globe"></i>
+                    </div>
                     <div class="form-block__item form-block__field-width-icon">
-                        {{ form_widget(form.type, {'attr': {"placeholder":"Type Tour","value":"","name":"t"}}) }}
-                        <i class="td-network"></i></div>
-                    {{ form_widget(form.save, {'attr': {'class': 'atbtn atbtn--full-width atbtn--primary','value':'recherche'}}) }}
+                        <select name="type" class="selectpicker">
+                            <option value="" selected="selected">Type</option>
+                            <option value="Croisieres">Croisieres</option>
+                            <option value="Randonnee">Randonnee</option>
+                            <option value="En marchant">En marchant</option>
+                            <option value="Sport">Sport</option>
+                            <option value="Air rides">Air rides</option>
+                            <option value="faune">faune</option>
+                        </select><i class="td-globe"></i>
+                    </div>
+                    {{ form_widget(form.save, {'attr': {'class': 'atbtn atbtn--full-width atbtn--primary'},'label':'chercher'}) }}
                     {{ form_end(form) }}
                 </div>
                 {{ include("appboxvoyageBundle::treevoyagewest.html.twig") }}

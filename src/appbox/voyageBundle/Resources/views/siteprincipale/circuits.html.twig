@@ -1,4 +1,4 @@
-{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% extends "::basepage.html.twig" %}
 {% block contenaire %}
     <div class="container">
         <div class="row">
@@ -26,11 +26,14 @@
                             <div class="atgrid__item">
                                 <div class="atgrid__item__top">
                                     <a href="{{ path('circuitpath',{'id' : voyage.id}) }}" class="atgrid__item__top__image"><img width="720" height="480" src="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}}" class="attachment-thumb_tour_listing size-thumb_tour_listing wp-post-image" alt="Alaska Lake"  sizes="(max-width: 720px) 100vw, 720px" /></a>
-                                    {% if voyage.typepromo == 'Earley Bird' %}
+                                    {% if voyage.typepromo == 'Early Bird' %}
                                         <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#01cb68">Early Bird</div></div>
                                     {% endif %}
-                                    {% if voyage.typepromo == 'Last Munite' %}
-                                        <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Last Munite</div></div>
+                                    {% if voyage.typed == 'Dernier munite' %}
+                                        <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Dernier Munite</div></div>
+                                    {% endif %}
+                                    {% if voyage.typed == 'week-end' %}
+                                        <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#d9534f">week-end</div></div>
                                     {% endif %}
                                     {% if voyage.typepromo == 'special offre' %}
                                         <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offre</div></div>
@@ -60,7 +63,7 @@
                 <div class="form-block block-after-indent form-block--vertical">
                     <h3 class="form-block__title">Cherche circuit </h3>
 
-                    <div class="form-block__description">Find your dream tour today!</div>
+                    <div class="form-block__description">Trouvez votre tour de rêve aujourd'hui!</div>
 
                     {{ form_start(form) }}
                         <input type="hidden" name="toursearch" value="1">
@@ -71,13 +74,26 @@
                             <i class="td-search-1"></i>
                         </div>
 
-                        <div class="form-block__item form-block__field-width-icon">
-                            {{ form_widget(form.destination, {'attr': {"placeholder":"Destination","value":"","name":"d"}}) }}
-                            <i class="td-globe"></i></div>
-                        <div class="form-block__item form-block__field-width-icon">
-                            {{ form_widget(form.type, {'attr': {"placeholder":"Type Tour","value":"","name":"t"}}) }}
-                            <i class="td-network"></i></div>
-                    {{ form_widget(form.save, {'attr': {'class': 'atbtn atbtn--full-width atbtn--primary','value':'recherche'}}) }}
+                    <div class="form-block__item form-block__field-width-icon">
+                        <select name="destination" class="selectpicker">
+                            <option value="" selected="selected">Destination</option>
+                            {% for vdest in vdestination %}
+                            <option value="{{ vdest.destination }}">{{ vdest.destination }}</option>
+                                {% endfor %}
+                        </select><i class="td-globe"></i>
+                    </div>
+                    <div class="form-block__item form-block__field-width-icon">
+                        <select name="type" class="selectpicker">
+                            <option value="" selected="selected">Type</option>
+                            <option value="Croisieres">Croisieres</option>
+                            <option value="Randonnee">Randonnee</option>
+                            <option value="En marchant">En marchant</option>
+                            <option value="Sport">Sport</option>
+                            <option value="Air rides">Air rides</option>
+                            <option value="faune">faune</option>
+                        </select><i class="td-globe"></i>
+                    </div>
+                    {{ form_widget(form.save, {'attr': {'class': 'atbtn atbtn--full-width atbtn--primary'},'label':'chercher'}) }}
                     {{ form_end(form) }}
                 </div>
                 {{ include("appboxvoyageBundle::treevoyagewest.html.twig") }}

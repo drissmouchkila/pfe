@@ -1,0 +1,203 @@
+{% extends "::basepage.html.twig" %}
+
+{% block contenaire %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header-section padding-left padding-right">
+                    <div class="header-section__content header-section__content--breadcrumbs">
+                        <div class="header-section__title-wrap--breadcrumbs"><h1 class="header-section__title">Demande de réservation</h1></div><div class="breadcrumbs-wrap"><div class="breadcrumbs"><ul><li><a href="{{  path('indexpath')}}">Home</a></li><li>Demande réservation</li></ul></div></div>				</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container layout-container margin-top margin-bottom">
+
+        <div class="page-single">
+            <main class="page-single__content" role="main">
+                <div class="woocommerce">
+                    {% if  voyage.datedebut|date('Ymd') < "now"|date('Ymd')  %}
+                    <blockquote>
+                        <p>voyage déjà expirer</p>
+                    </blockquote>
+                    {% elseif voyage.nbrplacetotal == voyage.nbrplacereser %}
+                        <blockquote>
+                            <p>les places est déjà résérver</p>
+                        </blockquote>
+                    {% elseif reser is not empty %}
+                        <blockquote>
+                            <p>Vous avez déjà une résérvation</p>
+                        </blockquote>
+                    {% else %}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal checkout woocommerce-checkout','id':'validation' }}) }}
+
+                        <div class="checkout-box padding-all">
+
+                            <div class="col2-set" id="customer_details">
+                                <div class="col-1">
+                                    <div class="woocommerce-billing-fields">
+
+                                        <h3>Details de la facturation</h3>
+
+
+
+                                        <div class="woocommerce-billing-fields__field-wrapper">
+                                            <p class="form-row form-row-first validate-required" id="billing_first_name_field" data-priority="10">
+                                                <label for="billing_first_name" class="">nom <abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.nom, {'attr': {'name':'nom','class': 'input-text','value': app.user.nom}}) }}
+
+                                            </p>
+                                            <p class="form-row form-row-last validate-required" id="billing_last_name_field" data-priority="20">
+                                                <label for="billing_last_name" class="">Prenom <abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.prenom, {'attr': {'class': 'input-text','value': app.user.prenom}}) }}
+                                            </p>
+                                            <p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field" data-priority="50">
+                                                <label for="billing_address_1" class="">Email<abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.email, {'attr': {'class': 'input-text','value': app.user.email}}) }}
+                                            </p>
+                                            <p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field" data-priority="50">
+                                                <label for="billing_address_1" class="">Address <abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.address, {'attr': {'class': 'input-text','value': app.user.adress}}) }}
+                                            </p>
+                                            <p class="form-row form-row-first validate-required validate-phone" id="billing_phone_field" data-priority="100">
+                                                <label for="billing_phone" class="">Telephone<abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.telephone, {'attr': {'class': 'input-text','value': app.user.telephone}}) }}
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-2">
+
+                                    <div class="woocommerce-additional-fields">
+
+                                        <div class="woocommerce-additional-fields__field-wrapper">
+                                            <p class="form-row notes" id="order_comments_field" data-priority="">
+                                                <label for="order_comments" class="">Autres notes</label>
+                                                <textarea name="order_comments" class="input-text " id="order_comments" placeholder="Remarques concernant votre commande, par ex. Notes spéciales pour livraison."  rows="2" cols="5"></textarea>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="product-box padding-all">
+                            <h3 id="order_review_heading">Facture</h3>
+
+                            <div id="order_review" class="woocommerce-checkout-review-order">
+                                <table class="shop_table woocommerce-checkout-review-order-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="product-name">Circuit</th>
+                                        <th class="product-total">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="cart_item">
+                                        <td class="product-name">
+                                            <span class="checkout-responsive-title">Product</span>{{ voyage.titre }}&nbsp;							                                <strong class="product-quantity">&times;{{ qte }} </strong>
+                                            {{ app.session.set('qte',qte ) }}
+                                            <dl class="variation">
+                                                <dt class="variation-BookingDate">Date debut:</dt>
+                                                <dd class="variation-BookingDate"><p>{{ voyage.datedebut|date("d/m/Y") }}</p>
+                                                </dd>
+                                            </dl>
+                                        </td>
+                                        <td class="product-total">
+                                            <span class="checkout-responsive-title">Total</span>
+                                            <span class="woocommerce-Price-amount amount">
+                                                <span class="woocommerce-Price-currencySymbol">&#36;</span>                                                                               {% set total= voyage.prix*qte %}{{ total }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{% set total= voyage.prix*qte %}{{ total }}</span></strong> </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <div id="payment" class="woocommerce-checkout-payment">
+                                    <ul class="wc_payment_methods payment_methods methods">
+                                        <li class="wc_payment_method payment_method_cheque">
+                                            <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method"
+                                                   value="cheque"  data-order_button_text="" checked />
+                                            <label for="payment_method_cheque">
+                                                paiement par banque (verser le montant total à ce compte bancaire xxxxxxxxx, la réservation va annuler après 48h si le recu n'est pas encore envoyé)</label>
+                                        </li>
+                                        <li class="wc_payment_method payment_method_cod">
+
+                                        <li class="wc_payment_method payment_method_paypal">
+                                            <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal"  data-order_button_text="Proceed to PayPal" />
+
+                                            <label for="payment_method_paypal">
+                                                PayPal <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" alt="PayPal acceptance mark" /><a href="https://www.paypal.com/us/webapps/mpp/paypal-popup" class="about_paypal" onclick="javascript:window.open('https://www.paypal.com/us/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">c'est quoi PayPal?</a>	</label>
+
+                                        </li>
+                                    </ul>
+
+
+
+
+                                    {{ form_widget(form.save, {'attr': {'class': 'button alt'},'label':'enregistrer'}) }}
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    {{ form_end(form) }}
+
+                    {% endif %}
+
+
+                </div>
+            </main>
+        </div>
+
+    </div><!-- .container -->
+    {% endblock %}
+{% block js %}
+    <!-- FormValidation -->
+    <link rel="stylesheet" href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.css')}}">
+    <!-- FormValidation plugin and the class supports validating Bootstrap form -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/js/jasny-bootstrap.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#validation').formValidation({
+                // I am validating Bootstrap form
+                framework: 'bootstrap',
+
+                // List of fields and their validation rules
+                fields: {
+                    nom: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The username is required and cannot be empty'
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 30,
+                                message: 'The username must be more than 6 and less than 30 characters long'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_]+$/,
+                                message: 'The username can only consist of alphabetical, number and underscore'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

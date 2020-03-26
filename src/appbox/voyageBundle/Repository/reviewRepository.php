@@ -15,8 +15,20 @@ class reviewRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('r');
         $qb->where('r.voyage = :id')
             ->setParameter('id',$id)
+            ->andwhere('r.valider = :ide')
+            ->setParameter('ide',true)
             ->orderBy('r.date', 'desc');
         return $qb->getQuery()->getResult();
 
     }
+    public function tousreview()
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->where('r.valider = :id')
+            ->setParameter('id',true)
+            ->orderBy('r.date', 'desc');
+        return $qb->getQuery()->getResult();
+
+    }
+    
 }

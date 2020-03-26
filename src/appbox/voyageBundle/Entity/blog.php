@@ -3,6 +3,8 @@
 namespace appbox\voyageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * blog
@@ -25,6 +27,9 @@ class blog
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
+     *
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $url;
 
@@ -41,8 +46,19 @@ class blog
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+    /**
+     * @ORM\Column(name="datedepublication", type="date")
+     */
+    private $datederecrutement;
 
+    /**
+     * @ORM\Column(name="employe",type="integer")
+     */
+    private $employe;
 
+    public function __construct(){
+        $this->datederecrutement= new \DateTime();
+    }
     /**
      * Get id
      *
@@ -124,5 +140,52 @@ class blog
     {
         return $this->description;
     }
-}
 
+    /**
+     * Set datederecrutement
+     *
+     * @param \DateTime $datederecrutement
+     *
+     * @return blog
+     */
+    public function setDatederecrutement($datederecrutement)
+    {
+        $this->datederecrutement = $datederecrutement;
+
+        return $this;
+    }
+
+    /**
+     * Get datederecrutement
+     *
+     * @return \DateTime
+     */
+    public function getDatederecrutement()
+    {
+        return $this->datederecrutement;
+    }
+
+    /**
+     * Set employe
+     *
+     * @param integer $employe
+     *
+     * @return blog
+     */
+    public function setEmploye($employe)
+    {
+        $this->employe = $employe;
+
+        return $this;
+    }
+
+    /**
+     * Get employe
+     *
+     * @return integer
+     */
+    public function getEmploye()
+    {
+        return $this->employe;
+    }
+}

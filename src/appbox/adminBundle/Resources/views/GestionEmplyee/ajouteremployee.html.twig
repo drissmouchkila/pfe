@@ -1,0 +1,173 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+    <link rel="stylesheet" href="{{  asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/css/dropify.min.css')}}">
+{% endblock %}
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Création d'un employee</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('adminpath') }}">Index</a></li>
+                <li class="active">Création d'un employé</li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    {{ form_start(form, {'attr': {'class': 'form-material form-horizontal'}}) }}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Information basic</h3>
+                    <div class="form-group">
+                        <label class="col-md-12" for="example-text">Nom
+                        </label>
+                        <div class="col-md-12">
+                              {{ form_widget(form.name, {'attr': {'class': 'form-control','placeholder':'entre ton nom','id':'example-text'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" for="bdate">Date de recrutement
+                        </label>
+                        <div class="col-md-12">
+                            {{ form_widget(form.datederrecur, {'attr': {'class': 'form-control mydatepicker','placeholder':'date de recrutement','id':'bdate'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12">Sexe</label>
+                        <div class="col-sm-12">
+                            <select class="form-control">
+                                <option>Sexe</option>
+                                <option>Masculin</option>
+                                <option>Feminin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12">Profile Image</label>
+                        <div class="col-sm-12">
+                            {{ form_widget(form.image, {'attr': {'class': 'dropify','id':'input-file-now'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Adress</label>
+                        <div class="col-md-12">
+                            {{ form_widget(form.adress, {'attr': {'class': 'form-control ','rows':3}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" for="url">Phone</span>
+                        </label>
+                        <div class="col-md-12">
+                         {{ form_widget(form.phone, {'attr': {'class': 'form-control','placeholder':'Numero de telephone'}}) }}
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="white-box">
+                <h3 class="box-title">Information sur compte</h3>
+                <div class="form-group">
+                    <label class="col-sm-12">Username de compte client</label>
+                    <div class="col-sm-12">
+                        <select name="username" class="form-control">
+                        {% for user in user %}
+                            {% if not user.hasRole('ROLE_ADMIN') and not user.hasRole('ROLE_SUPER_ADMIN')%}
+                            <option>{{ user.username }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="white-box">
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-info waves-effect waves-light m-r-10','label':'enregistrer'},'label':'enregistrer'}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="white-box">
+                <h3 class="box-title">Information sur réseaux sociale</h3>
+                    <div class="form-group">
+                        <label class="col-md-12" for="furl">Facebook URL</span>
+                        </label>
+                        <div class="col-md-12">
+                            {{ form_widget(form.facebbookUrl, {'attr': {'class': 'form-control','id':'furl'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" for="turl">Twitter URL</span>
+                        </label>
+                        <div class="col-md-12">
+                            {{ form_widget(form.twitterUrl, {'attr': {'class': 'form-control','id':'turl'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" for="gurl">Google Plus URL</span>
+                        </label>
+                        <div class="col-md-12">
+                            {{ form_widget(form.googleUrl, {'attr': {'class': 'form-control','id':'gurl'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12" for="inurl">LinkedIN URL</span>
+                        </label>
+                        <div class="col-md-12">
+                            {{ form_widget(form.LinkdenUrl, {'attr': {'class': 'form-control','id':'inurl'}}) }}
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+
+    </div>
+                            {{ form_end(form) }}
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <!-- jQuery file upload -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.dropify').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'Désolé, le fichier trop volumineux'
+                }
+            });
+
+            // Used events
+            var drEvent = $('#input-file-events').dropify();
+
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+
+            drEvent.on('dropify.errors', function(event, element) {
+                console.log('Has Errors');
+            });
+
+            var drDestroy = $('#input-file-to-destroy').dropify();
+            drDestroy = drDestroy.data('dropify')
+            $('#toggleDropify').on('click', function(e) {
+                e.preventDefault();
+                if (drDestroy.isDropified()) {
+                    drDestroy.destroy();
+                } else {
+                    drDestroy.init();
+                }
+            })
+        });
+    </script>
+{% endblock %}

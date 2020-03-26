@@ -1,0 +1,116 @@
+{% extends "::Baseadmin.html.twig" %}
+
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Liste des clients</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('adminpath') }}">Index</a></li>
+                <li class="active">Liste des clients</li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <div class="table-responsive">
+                    <table class="table product-overview" id="myTable">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Connecter par</th>
+                            <th>Nombre de reservation</th>
+                            <th>Nombre de commentaire</th>
+                            <th>Nombre de commentaires bloque</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for client in clients %}
+                            {% if not client.hasRole('ROLE_ADMIN') and not client.hasRole('ROLE_SUPER_ADMIN') %}
+                                <tr>
+                                <td id="clientid">{{ client.id }}</td>
+                                <td id="clientusername">{{ client.username }}</td>
+                                <td id="clientemail"> {{ client.email }} </td>
+                                <td id="client">
+                                    {% if client.facebookid is not null %}
+                                        <span class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</span>
+                                    {% elseif  client.twitterid is not null %}
+                                        <span class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</span>
+                                    {% elseif client.googleid is not null %}
+                                        <span class="btn btn-googleplus"><i class="fa fa-google-plus"></i> Google+</span>
+                                    {% else %}
+                                        <span class="btn btn-"><i class="fa fa-"></i> Email</span>
+                                    {% endif %}
+                                </td>
+                                <td id="clientusername">{{ client.nbrreser }}</td>
+                                <td id="clientusername">{{ client.nbrcommtotal }}</td>
+                                <td id="clientusername">{{ client.nbrcommbloqS }}</td>
+                                <td>
+                                    <a href="{{ path('envoyeremailpath',{id:client.id}) }}" class="text-inverse p-r-10" data-toggle="tooltip" title="Envoyer Email">
+                                        <i class="ti-email"></i>
+                                    </a>
+                                        <a href="{{ path('suppclient',{id:client.id}) }}" class="text-inverse" title="Supprimer" data-toggle="tooltip">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--row -->
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+            $(document).ready(function() {
+                var table = $('#example').DataTable({
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 2
+                    }],
+                    "order": [
+                        [2, 'asc']
+                    ],
+                    "displayLength": 25,
+                    "drawCallback": function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({
+                            page: 'current'
+                        }).nodes();
+                        var last = null;
+                        api.column(2, {
+                            page: 'current'
+                        }).data().each(function(group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                                last = group;
+                            }
+                        });
+                    }
+                });
+                // Order by the grouping
+                $('#example tbody').on('click', 'tr.group', function() {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                        table.order([2, 'desc']).draw();
+                    } else {
+                        table.order([2, 'asc']).draw();
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

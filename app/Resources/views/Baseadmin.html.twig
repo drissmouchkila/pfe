@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/appboxvoyageBundle/image/logoblack2.png') }}">
+    {% block title %}
+    <title>Elite CRM Admin Template - CRM admin dashboard web app kit</title>
+    {% endblock %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{  asset('bundles/appboxadminBundle/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    {% block style %}
+    <link href="{{  asset('bundles/appboxadminBundle/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css')}}" rel="stylesheet">
+   {% endblock %}
+    <link href="{{  asset('bundles/appboxadminBundle/plugins/bower_components/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- Menu CSS -->
+    <link href="{{  asset('bundles/appboxadminBundle/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css')}}" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+    <!-- animation CSS -->
+    <link href="{{  asset('bundles/appboxadminBundle/css/animate.css')}}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{  asset('bundles/appboxadminBundle/css/style.css')}}" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{  asset('bundles/appboxadminBundle/css/colors/gray-dark.css')}}" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div id="wrapper">
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+            <div class="top-left-part"><a class="logo" href="{{ path('adminpath') }}"><b><span class="hidden-xs"><img src="{{ asset('bundles/appboxvoyageBundle/image/logo.png') }}" alt="home" class="dark-logo" /></span></b></a></div>
+            <ul class="nav navbar-top-links navbar-left hidden-xs">
+                <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="icon-envelope"></i>
+                        {% if message is not empty  %}
+                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu mailbox animated bounceInDown">
+                        {% set z = 0 %}
+                        {% for message in message %}
+                            {% set z = z+1 %}
+                        {% endfor %}
+                        <li>
+                            <div class="drop-title">{{ z }} nouveau message</div>
+                        </li>
+                        <li>
+                            <div class="message-center">
+                                {% for message in message %}
+                                <a href="{{ path('inboxpath') }}">
+                                    <div class="mail-contnet">
+                                        <h5>{{ message.nom }}</h5>
+                                        <span class="mail-desc">{{ message.objet }}</span> <span class="time">{{ message.date|date("d/m/Y g:ia") }}</span> </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="icon-note"></i>
+                       {% if newcomm is not empty or newreser is not empty %}
+                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks animated slideInUp">
+                        {% set x = 0 %}
+                        {% set y = 0 %}
+                        {% for newreser in newreser %}
+                            {% set y= y+1 %}
+                        {% endfor %}
+                        {% for newcomm in newcomm %}
+                            {% set x= x+1 %}
+                        {% endfor %}
+                        <li>
+                            <a href="{{ path('nouveaucommentaire') }}">
+                                <div>
+                                   <i class="fa fa-comments" style="color: #0000F0"></i> <span class=" text-muted">{{ x }} nouveau commentaires</span> </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ path('nouveaureservationpath') }}">
+                                <div>
+                                    <i class="fa fa-usd" style="color: #0000F0"></i> <span class=" text-muted">{{ y }} nouveau paiement</span> </p>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+
+                <li class="right-side-toggle">
+                    <a class="waves-effect waves-light" href="javascript:void(0)"><i class="ti-settings"></i></a>
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </div>
+        <!-- /.navbar-header -->
+        <!-- /.navbar-top-links -->
+        <!-- /.navbar-static-side -->
+    </nav>
+    <!-- End Top Navigation -->
+    <!-- Left navbar-header -->
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+            <div class="user-profile">
+                <div class="dropdown user-pro-body">
+                    <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }}<span class="caret"></span></a>
+                    <ul class="dropdown-menu animated flipInY">
+                        <li><a href="{{ path('inboxpath') }}"><i class="ti-email"></i> Inbox</a></li>
+                        <li><a href="{{ path('fos_user_change_password')}}"><i class="ti-settings"></i> Changer mot de passe</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="nav" id="side-menu">
+                <li class="nav-small-cap m-t-10">--- Main Menu</li>
+                <li> <a href="{{ path('adminpath') }}" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu "> Tableau de bord </span></a></li>
+
+                <li> <a href="{{ path('inboxpath') }}" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon=")"></i> <span class="hide-menu "> Mailbox</span></a></li>
+
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa fa-car "></i> <span class="hide-menu "> Gestion des circuits <span class="fa arrow"></span></span></a>
+                    <ul class="nav nav-second-level">
+                        <li> <a href="{{ path('tousvoyagepath') }}">circuits en cours</a> </li>
+                        <li> <a href="{{ path('archivevoyagepath') }}">Archive des circuits</a> </li>
+                        <li> <a href="{{ path('ajoutervoyagepath') }}">Création d'un circuit </a> </li>
+                        <li> <a href="{{ path('ajouterweekendpath') }}">Création d'un circuit week-end</a> </li>
+                        <li> <a href="{{ path('mettrevoyageenpromovoyagepath') }}">Rendre circuit en promotion</a> </li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0);" class="waves-effect"><i  class="linea-icon linea-basic fa fa-clipboard"></i> <span class="hide-menu">Gestion de blog<span class="fa arrow"></span></span></a>
+                    <ul class="nav nav-second-level">
+                        <li> <a href="{{ path('tousblogpath') }}">Tous les Aricles</a></li>
+                        <li> <a href="{{ path('ajouterblogpath') }}">création d'un article</a></li>
+
+                    </ul>
+                </li>
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa fa-shopping-basket " ></i> <span class="hide-menu ">Gestion des Reservations <span class="fa arrow"></span></span></a>
+                    <ul class="nav nav-second-level">
+                        <li> <a href="{{ path('nouveaureservationpath') }}">Validation des paiements</a> </li>
+                        <li> <a href="{{ path('ajouterreservationpath') }}">création d'une réservation</a> </li>
+                    </ul>
+                </li>
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa fa-comments " ></i> <span class="hide-menu "> Gestion des commentaires <span class="fa arrow"></span></span></a>
+                    <ul class="nav nav-second-level">
+                        <li> <a href="{{ path('touscommentaires') }}">Tous commentaires</a> </li>
+                        <li> <a href="{{ path('nouveaucommentaire') }}">les nouveaux commentaires</a> </li>
+                    </ul>
+                </li>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li> <a href="{{ path('tousclientpath') }}" class="waves-effect"><i class="icon-people fa fa-users" ></i> <span class="hide-menu"> Gestion des Clients </span></a></li>
+                <li><a href="javascript:void(0);" class="waves-effect"><i  class="linea-icon linea-basic fa fa-user-plus"></i> <span class="hide-menu">Gestion des Employes<span class="fa arrow"></span></span></a>
+                    <ul class="nav nav-second-level">
+                        <li> <a href="{{ path('tousemployeepath') }}">Tous les Agent</a></li>
+                        <li> <a href="{{ path('exemployepath') }}">Ex Agent</a></li>
+                        <li> <a href="{{ path('ajouteremployee') }}">Création d'un Agent</a></li>
+
+                    </ul>
+                </li>
+
+                <li> <a href="javascript:void(0);" class="waves-effect"><i class="linea-icon linea-basic fa-envelope " data-icon=")"></i> <span class="hide-menu "> Gestion newsletter <span class="fa arrow"></span></span></a>
+                    <ul class="nav nav-second-level">
+                        <li> <a href="{{ path('listnewsletterpath') }}">Les utilisateurs</a> </li>
+                        <li> <a href="{{ path('Envoyernewsletter') }}">envoyer un newsletter</a> </li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <!-- Left navbar-header end -->
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+           {% block contenaire %}
+            {% endblock %}
+            <!-- .right-sidebar -->
+            <div class="right-sidebar">
+                <div class="slimscrollright">
+                    <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+                    <div class="r-panel-body">
+                        <ul>
+                            <li><b>Layout Options</b></li>
+                            <li>
+                                <div class="checkbox checkbox-info">
+                                    <input id="checkbox1" type="checkbox" class="fxhdr">
+                                    <label for="checkbox1"> Fix Header </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox checkbox-warning">
+                                    <input id="checkbox2" type="checkbox" checked="" class="fxsdr">
+                                    <label for="checkbox2"> Fix Sidebar </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox checkbox-success">
+                                    <input id="checkbox4" type="checkbox" class="open-close">
+                                    <label for="checkbox4"> Toggle Sidebar </label>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="themecolors" class="m-t-20">
+                            <li><b>With Light sidebar</b></li>
+                            <li><a href="javascript:void(0)" theme="default" class="default-theme">1</a></li>
+                            <li><a href="javascript:void(0)" theme="green" class="green-theme">2</a></li>
+                            <li><a href="javascript:void(0)" theme="gray" class="yellow-theme">3</a></li>
+                            <li><a href="javascript:void(0)" theme="blue" class="blue-theme">4</a></li>
+                            <li><a href="javascript:void(0)" theme="purple" class="purple-theme">5</a></li>
+                            <li><a href="javascript:void(0)" theme="megna" class="megna-theme">6</a></li>
+                            <li><b>With Dark sidebar</b></li>
+                            <br/>
+                            <li><a href="javascript:void(0)" theme="default-dark" class="default-dark-theme">7</a></li>
+                            <li><a href="javascript:void(0)" theme="green-dark" class="green-dark-theme">8</a></li>
+                            <li><a href="javascript:void(0)" theme="gray-dark" class="yellow-dark-theme working">9</a></li>
+                            <li><a href="javascript:void(0)" theme="blue-dark" class="blue-dark-theme">10</a></li>
+                            <li><a href="javascript:void(0)" theme="purple-dark" class="purple-dark-theme">11</a></li>
+                            <li><a href="javascript:void(0)" theme="megna-dark" class="megna-dark-theme">12</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.right-sidebar -->
+        </div>
+        <!-- /.container-fluid -->
+        <footer class="footer text-center"> 2017 &copy; Appbox Voyege. </footer>
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{  asset('bundles/appboxadminBundle/bootstrap/dist/js/tether.min.js')}}"></script>
+<script src="{{  asset('bundles/appboxadminBundle/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js')}}"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}"></script>
+<!--slimscroll JavaScript -->
+<script src="{{  asset('bundles/appboxadminBundle/js/jquery.slimscroll.js')}}"></script>
+<!--Wave Effects -->
+<script src="{{  asset('bundles/appboxadminBundle/js/waves.js')}}"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{  asset('bundles/appboxadminBundle/js/custom.min.js')}}"></script>
+<!-- Sparkline chart JavaScript -->
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js')}}"></script>
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/datatables/jquery.dataTables.min.js')}}"></script>
+
+{% block javascriptepersonnaliser %}
+{% endblock %}
+
+<!--Style Switcher -->
+<script src="{{  asset('bundles/appboxadminBundle/plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
+</body>
+
+</html>

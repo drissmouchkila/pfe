@@ -1,0 +1,102 @@
+{% extends "::basepage.html.twig" %}
+
+{% block contenaire %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header-section padding-left padding-right">
+                    <div class="header-section__content header-section__content--breadcrumbs">
+                        <div class="header-section__title-wrap--breadcrumbs"><h1 class="header-section__title">Factrure</h1></div><div class="breadcrumbs-wrap"><div class="breadcrumbs"><ul><li><a href="{{  path('indexpath')}}">Home</a></li><li>Paiement</li></ul></div></div>				</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container layout-container margin-top margin-bottom">
+
+        <div class="page-single">
+            <main class="page-single__content" role="main">
+                <div class="woocommerce">
+
+
+
+                    <div class="product-box padding-all">
+                        <ul class="order_details">
+                            <li class="order">Numero dereservation:<strong>{{ reservation.id }}</strong></li>
+                            <li class="date">Date:<strong>{{ voyage.datedebut|date("d/m/Y") }}</strong></li>
+                            <li class="total">Total:<strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>{% set total= voyage.prix*reservation.nbrpersonne %}{{ total }}</span></strong></li>
+                            <li class="method">Methode de paiement :<strong>paiement a l'agence</strong></li>
+                        </ul>
+                        <div class="clear"></div>
+
+                        <h3 id="order_review_heading">Facture</h3>
+
+                        <div id="order_review" class="woocommerce-checkout-review-order">
+                            <table class="shop_table woocommerce-checkout-review-order-table">
+                                <thead>
+                                <tr>
+                                    <th class="product-name">Nom</th>
+                                    <th class="product-total">{{ reservation.nom }}</th>
+                                </tr>
+                                <tr>
+                                    <th class="product-name">Prenom</th>
+                                    <th class="product-total">{{ reservation.prenom }}</th>
+                                </tr>
+                                <tr>
+                                    <th class="product-name">Adresse</th>
+                                    <th class="product-total">{{ reservation.address }}</th>
+                                </tr>
+                                <tr>
+                                    <th class="product-name">telephone</th>
+                                    <th class="product-total">{{ reservation.telephone }}</th>
+                                </tr>
+                                <tr>
+                                    <th class="product-name">Date de mettre la reservation</th>
+                                    <th class="product-total">{{ reservation.datemettreres |date("d/m/Y") }}</th>
+                                </tr>
+                                </thead>
+                                </table>
+                            <table class="shop_table woocommerce-checkout-review-order-table">
+                                <thead>
+                                <tr>
+                                    <th class="product-name">Circuit</th>
+                                    <th class="product-total">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="cart_item">
+                                    <td class="product-name">
+                                        <span class="checkout-responsive-title">Product</span>{{ voyage.titre }}&nbsp;							                                <strong class="product-quantity">&times;{{ reservation.nbrpersonne }} </strong>
+                                        <dl class="variation">
+                                            <dt class="variation-BookingDate">Date debut:</dt>
+                                            <dd class="variation-BookingDate"><p>{{ voyage.datedebut|date("d/m/Y") }}</p>
+                                            </dd>
+                                        </dl>
+                                    </td>
+                                    <td class="product-total">
+                                        <span class="checkout-responsive-title">Total</span>
+                                            <span class="woocommerce-Price-amount amount">
+                                                <span class="woocommerce-Price-currencySymbol">&#36;</span>                                                                               {% set total= voyage.prix*reservation.nbrpersonne %}{{ total }}
+                                            </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+
+                                <tr class="order-total">
+                                    <th>Total</th>
+                                    <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&#36;</span>{% set total= voyage.prix*reservation.nbrpersonne %}{{ total }}</span></strong> </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <a href="{{ path('imprimerfacturepath',{'voyage':voyage.id,'reservation':reservation.id}) }}" target="_blank" class="btn btn-fb" >imprimer la facture</a><br><br>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+
+    </div><!-- .container -->
+  {% endblock %}

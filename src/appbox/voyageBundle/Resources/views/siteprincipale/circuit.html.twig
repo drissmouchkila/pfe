@@ -1,7 +1,7 @@
-{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% extends "::basepage.html.twig" %}
 {% block contenaire %}
     <div class="header-section header-section--with-banner parallax-section parallax-section--header">
-        <div class="parallax-image" style="background-image:url({{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}); background-repeat:repeat;"></div>
+        <div class="parallax-image" style=" background-size: 1500px 500px;background-image:url({{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}); background-repeat:repeat;"></div>
         <div class="container">
             <div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li><a href="{{ path('circuitspath') }}">Circuits</a></li><li>{{ voyage.titre }}</li></ul></div>
             <div class="header-section__content">
@@ -15,7 +15,10 @@
             <main class="col-md-9" role="main" itemscope >
                 <div class="tours-tabs">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tabdescription" data-toggle="tab">Details</a></li><li><a href="#tabatab0" data-toggle="tab">Itinerary</a></li><li><a href="#tabphotos" data-toggle="tab">Photos</a></li><li class="visible-xs booking-form-scroller"><a href="#tabbooking_form" data-toggle="tab">Book the tour</a></li>	</ul>
+                        <li class="active"><a href="#tabdescription" data-toggle="tab">Details</a></li>
+                        <li><a href="#tabatab0" data-toggle="tab">Programme</a></li>
+                        <li><a href="#tabphotos" data-toggle="tab">Photos</a></li>
+                        <li class="visible-xs booking-form-scroller"><a href="#tabbooking_form" data-toggle="tab">Réserver circuits</a></li>	</ul>
 
                     <div class="tab-content">
                         <div class="tab-pane in active" id="tabdescription">
@@ -39,56 +42,198 @@
                                         <div class="tours-tabs__info__item__description">Location</div>
                                     </div>
                                 </div>
+                                <div class="tours-tabs__info__item">
+                                    <div class="tours-tabs__info__item__content">
+                                        <div class="tours-tabs__info__item__icon"><i class="td-user"></i></div>
+                                        <div class="tours-tabs__info__item__title">{{ voyage.minage }}+</div>
+                                        <div class="tours-tabs__info__item__description">Age</div>
+                                    </div>
+                                </div>
+                                <div class="tours-tabs__info__item">
+                                    <div class="tours-tabs__info__item__content">
+                                        <div class="tours-tabs__info__item__icon"><i class="td-calendar-2"></i></div>
+                                        <div class="tours-tabs__info__item__title">{{ voyage.datedebut|date('j F') }}-{{ voyage.datefin|date('j F') }}</div>
+                                        <div class="tours-tabs__info__item__description">Dates</div>
+                                    </div>
+                                </div>
                             </div>
+                            <style>.alert-message
+                                {
+                                    margin: 20px 0;
+                                    padding: 20px;
+                                    border-left: 3px solid #eee;
+                                }
+                                .alert-message h4
+                                {
+                                    margin-top: 0;
+                                    margin-bottom: 5px;
+                                }
+                                .alert-message p:last-child
+                                {
+                                    margin-bottom: 0;
+                                }
+                                .alert-message code
+                                {
+                                    background-color: #fff;
+                                    border-radius: 3px;
+                                }
+                                .alert-message-success
+                                {
+                                    background-color: #F4FDF0;
+                                    border-color: #3C763D;
+                                }
+                                .alert-message-success h4
+                                {
+                                    color: #3C763D;
+                                }
+                                .alert-message-danger
+                                {
+                                    background-color: #fdf7f7;
+                                    border-color: #d9534f;
+                                }
+                                .alert-message-danger h4
+                                {
+                                    color: #d9534f;
+                                }
+                                .alert-message-warning
+                                {
+                                    background-color: #fcf8f2;
+                                    border-color: #f0ad4e;
+                                }
+                                .alert-message-warning h4
+                                {
+                                    color: #f0ad4e;
+                                }
+                                .alert-message-info
+                                {
+                                    background-color: #f4f8fa;
+                                    border-color: #5bc0de;
+                                }
+                                .alert-message-info h4
+                                {
+                                    color: #5bc0de;
+                                }
+                                .alert-message-default
+                                {
+                                    background-color: #EEE;
+                                    border-color: #B4B4B4;
+                                }
+                                .alert-message-default h4
+                                {
+                                    color: #000;
+                                }
+                                .alert-message-notice
+                                {
+                                    background-color: #FCFCDD;
+                                    border-color: #BDBD89;
+                                }
+                                .alert-message-notice h4
+                                {
+                                    color: #444;
+                                }
+                            </style>
+                            {% if voyage.datedebut|date('Ymd') <= "now"|date('Ymd') %}
+                            <div class="alert-message alert-message-info">
+                                <h4>circuit est déjà fini </h4>
+                                <p>
+                                     La date de debut de ce circuit<strong> {{ voyage.datedebut|date('d/m/Y') }} </strong>est déjà passé.</p>
+                            </div>
+                                {% elseif reser is not null %}
+                                {% if  reser.paiement == "Non"  %}
+                                <div class="alert-message alert-message-warning">
+                                    <h4>Votre paiement n'est pas encore effectué</h4>
+                                    <p>Il faut envoyé le recu  de paiement</p>
+                                </div>
+                               {% elseif reser.paiement == "En cours" %}
+                                <div class="alert-message alert-message-default">
+                                    <h4>Votre paiement est en cours de traitement</h4>
+                                    <p>La réponse va envoyer par email.</p>
+                                </div>
+                                {% elseif reser.paiement == "Valider" %}
+                                <div class="alert-message alert-message-success">
+                                    <h4>Votre paiement a bien valider</h4>
+                                    <p>La date de debut de circuit est <strong>{{ voyage.datedebut|date('d/m/Y') }}</strong></p>
+                                </div>
+                               {% elseif voyage.nbrplacetotal == voyage.nbrplacereser %}
+                                <div class="alert-message alert-message-info">
+                                    <h4>circuit est saturé </h4>
+                                    <p>
+                                        Tous les places est réservé.</p>
+                                </div>
+                                    {% endif %}
+                             {% endif %}
+
+
                             <div class="tours-tabs__content padding-all">
                                 <p>{{ voyage.description }}</p>
                                 <table class="table table-bordered tours-tabs__table" style="height: 233px;" width="862">
                                     <tbody>
                                     <tr>
-                                        <td><strong>DEPARTURE/RETURN LOCATION</strong></td>
-                                        <td>San Francisco International Airport</td>
+                                        <td><strong>DEPART/RETOURNE LOCATION</strong></td>
+                                        <td>{{ voyage.lieu }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>DEPARTURE TIME</strong></td>
-                                        <td>Please arrive at least�2 hours before the flight.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>INCLUDED</strong></td>
+                                        <td><strong>OPTION INCLUT</strong></td>
                                         <td>
                                             <table class="table table-bordered" style="height: 62px;" width="300">
                                                 <tbody>
+                                                {% for op in option %}
                                                 <tr>
-                                                    <td><i class="fa fa-check icon-tick icon-tick--on"></i>Airfare</td>
-                                                    <td><i class="fa fa-check icon-tick icon-tick--on"></i>Accommodations</td>
+                                                    {% if op.etat == 'inclut' %}
+                                                    <td><i class="fa fa-check icon-tick icon-tick--on"></i>{{ op.nom }}</td>
+                                                        {% endif %}
                                                 </tr>
-                                                <tr>
-                                                    <td><i class="fa fa-check icon-tick icon-tick--on"></i>Local transportation</td>
-                                                    <td><i class="fa fa-check icon-tick icon-tick--on"></i>Professional guide</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>NOT INCLUDED</b></td>
-                                        <td>
-                                            <table class="table table-bordered" style="height: 62px;" width="300">
-                                                <tbody>
-                                                <tr>
-                                                    <td><i class="fa fa-times icon-tick icon-tick--off"></i>Entrance fees</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="fa fa-times icon-tick icon-tick--off"></i>Guide�gratuity</td>
-                                                </tr>
+                                                    {% endfor %}
                                                 </tbody>
                                             </table>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <p>Potenti et sociosqu interdum condimentum lorem facilisi litora, sociosqu. Eros etiam luctus turpis sodales laoreet, tristique commodo et id cras habitant sollicitudin. Viverra, rutrum ultrices imperdiet laoreet sociosqu id dictum.</p>
-                                <p>Dignissim inceptos nonummy iaculis parturient velit praesent tristique pharetra netus semper auctor quisque ultrices diam. Lectus aliquam sed pretium sem egestas ad sodales aenean cras litora est Aptent mattis praesent.</p>
+                                <p>{{ voyage.description }}</p>
                             </div>
+                            <div class="tours-tabs__content padding-all">
+                                <div class="timeline">
+                                    <div class="section-title title title--small title--center title--decoration-bottom-center title--underline">
+                                        <h3 class="title__primary">Programmes </h3>
+                                    </div>
+                                    {% for route in route %}
+                                        <div class="timeline__item">
+                                            <div class="timeline__item__icon-wrap">
+                                                <div class="timeline__item__icon">
+                                                    <div class="timeline__item__icon__text">{{ route.numjour }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline__item__content padding-left">
+                                                <h3 class="timeline__item__title">Jour {{ route.numjour }}  {% if loop.last %}Return{% endif %} {% if loop.first %}Depart{% endif %}</h3>
+                                                <div class="timeline__item__description">{{ route.description }}</div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="tours-tabs__content padding-all">
+                                <div class="section-title title title--small title--center title--decoration-bottom-center title--underline">
+                                    <h3 class="title__primary">Images </h3>
+                                </div>
+                                <br/><br/>
+                                <div class="row product-thumbnails">
+                                    <div class="col-md-12">
+                                        <a href="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}}" class="woocommerce-main-image swipebox" title="Discover Costa Rica">
+                                            <img width="1920" height="900" src="{{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}" class="attachment-full size-full wp-post-image" alt="Costa Rica Waterfall"  />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row product-thumbnails columns-3">
+                                    {% for galerie in galerie %}
+                                        <div class="col-sm-3 col-xs-4 product-thumbnails__item">
+                                            <a href="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="swipebox" title="">
+                                                <img width="180" height="120" src="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="attachment-shop_thumbnail size-shop_thumbnail" alt="Tropical Rainforest Parrot"  sizes="(max-width: 180px) 100vw, 180px" /></a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
                         </div>
                         <div class="tab-pane fade" id="tabatab0">
                             <div class="tours-tabs__content padding-all">
@@ -101,7 +246,7 @@
                                             </div>
                                         </div>
                                         <div class="timeline__item__content padding-left">
-                                            <h3 class="timeline__item__title">Jour {{ route.numjour }}  {{ route.titre }}</h3>
+                                            <h3 class="timeline__item__title">Jour {{ route.numjour }}  {% if loop.last %}Return{% endif %} {% if loop.first %}Depart{% endif %}</h3>
                                             <div class="timeline__item__description">{{ route.description }}</div>
                                         </div>
                                     </div>
@@ -111,12 +256,40 @@
                         </div>
                         <div class="tab-pane fade" id="tabphotos">
                             <div class="tours-tabs__content padding-all">
-                                <div class="row product-thumbnails"><div class="col-md-12"><a href="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}}" class="woocommerce-main-image swipebox" title="Discover Costa Rica"><img width="1920" height="900" src="{{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}" class="attachment-full size-full wp-post-image" alt="Costa Rica Waterfall"  /></a></div></div>
+                                <div class="row product-thumbnails">
+                                    <div class="col-md-12">
+                                        <a href="{{  asset('bundles/appboxvoyageBundle/image/'~voyage.image)}}" class="woocommerce-main-image swipebox" title="Discover Costa Rica">
+                                            <img width="1920" height="900" src="{{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}" class="attachment-full size-full wp-post-image" alt="Costa Rica Waterfall"  />
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="row product-thumbnails columns-3">
                                     {% for galerie in galerie %}
-                                    <div class="col-sm-3 col-xs-4 product-thumbnails__item"><a href="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="swipebox" title=""><img width="180" height="120" src="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="attachment-shop_thumbnail size-shop_thumbnail" alt="Tropical Rainforest Parrot"  sizes="(max-width: 180px) 100vw, 180px" /></a></div>
+                                    <div class="col-sm-3 col-xs-4 product-thumbnails__item">
+                                        <a href="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="swipebox" title="">
+                                            <img width="180" height="120" src="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="attachment-shop_thumbnail size-shop_thumbnail" alt="Tropical Rainforest Parrot"  sizes="(max-width: 180px) 100vw, 180px" /></a>
+                                    </div>
                                     {% endfor %}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tabgalerie">
+                            <div class="tours-tabs__content padding-all">
+                                     {% for galerie in image %}
+                                 <div class="col-sm-6 gallery__item-wrap" data-filterid=" costa-rica">
+                                    <a href="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" class="swipebox gallery__item" title="{{ voyage.titre }}">
+                                        <img width="360" height="240" src="{{ asset('bundles/appboxvoyageBundle/image/'~galerie.url) }}" />
+                                        <span class="gallery__item__info">
+                                            <span class="gallery__item__info__content">
+                                                <span class="gallery__item__title">{{ galerie.url }}</span>
+                                                <span class="gallery__item__delimiter"></span>
+                                                <span class="gallery__item__description"> {{ voyage.destination }}</span>
+                                            </span>
+                                            <span class="gallery__item__shadow"></span>
+                                        </span>
+                                    </a>
+                                </div>
+                                         {% endfor %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tabbooking_form">
@@ -131,11 +304,11 @@
 
                     <div style="background-color: #FFFFFF" id="comments" class="tour-reviews margin-top">
                         <div class="section-title title title--small title--center title--decoration-bottom-center title--underline">
-                            <h3 class="title__primary">Tour Reviews</h3>
+                            <h3 class="title__primary">Commentaires </h3>
                         </div>
                         <div class="tour-reviews__items">
                             {% if reviews is empty %}
-                            <p class="woocommerce-noreviews padding-all">There are no reviews yet.</p>
+                            <p class="woocommerce-noreviews padding-all">Il n'y a pas encore de commentaire.</p>
                             {% else %}
                                 {%   for review in reviews %}
                                 <div  class="tour-reviews__item margin-left margin-right padding-top padding-bottom" itemscope >
@@ -147,10 +320,18 @@
                                         </div>
                                         <div class="tour-reviews__item__content">
                                             <div class="tour-reviews__item__content__top">
-                                                <div class="tour-reviews__item__rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                                                <div class="tour-reviews__item__rating">
+
+                                                </div>
                                                 <div class="tour-reviews__item__date">{{ review.date|date("F jS \\a\\t g:ia") }}</div>
                                             </div>
                                             <div class="tour-reviews__item__text" itemprop="reviewBody"><p>{{ review.review }}</p>
+                                                <div class="tour-reviews__item__date">
+                                                    {% if app.user is not null %}
+                                                {% if app.user.username == review.nom %}
+                                                    <a href="{{ path('supcommentaire',{'id':voyage.id,'review':review.id}) }}" class="btn btn-fb">Supprimer</a>
+                                                {% endif %}
+                                                        {% endif %}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -158,19 +339,28 @@
                                 {%  endfor %}
                                 {% endif %}
                         </div>
-
-
+                        {% if comm is not empty %}
+                            <div class="alert-message alert-message-info">
+                                <h4>Vous avez déjà saisie une commentaires </h4>
+                                <p>votre commentaires es en cours de traitement,ca affiche aprés la validation par admin. </p>
+                            </div>
+                        {% endif %}
                         <div id="tour-leave-review" class="tour-reviews__form padding-all">
-                            <h3 class="tour-reviews__form__title">Leave a Review</h3>
+                            <h3 class="tour-reviews__form__title">Commentaire</h3>
                             <div id="respond" class="comment-respond">
                                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                                 {{ form_widget(form.review, {'attr': {'class': 'form-control','placeholder':'review'}}) }}
-                                {{ form_widget(form.nom, {'attr': {'class': 'form-control','placeholder':'Nom'}}) }}
-                                {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder':'Email'}}) }}
-                                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-                                {{ form_end(form) }}
+                                <br><br><br>
+                                {% if comm is not empty %}
+                                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary','disabled':'disabled'},'label': 'envoyer'}) }}
+                                 {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'},'label': 'envoyer' }) }}
+                                {% else %}
+                                  <span>{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary','disabled':'disabled'},'label': 'envoyer'}) }} </span>
+                                {% endif %}
+                                  {{ form_end(form) }}
 
-                            </div><!-- #respond -->
+                            </div>
                         </div>
                     </div>
 
@@ -188,27 +378,34 @@
                     {% if voyage.typepromo == 'Early Bird' %}
                     <div class=""><div class="price-decoration__label-round" style="background-color:#01cb68"><span>Early Bird</span></div></div>
                         {% endif %}
-                    {% if voyage.typepromo == 'Last Munite' %}
-                        <div class=""><div class="price-decoration__label-round" style="background-color:#eb4293"><span>Last Munite</span></div></div>
+                    {% if voyage.typed == 'Dernier munite' %}
+                        <div class=""><div class="price-decoration__label-round" style="background-color:#eb4293"><span>Dernier munite</span></div></div>
+                    {% endif %}
+                    {% if voyage.typed == 'Week-end' %}
+                        <div class=""><div class="price-decoration__label-round" style="background-color:#d9534f"><span>Week-end</span></div></div>
                     {% endif %}
                     {% if voyage.typepromo == 'Special offre' %}
                         <div class=""><div class="price-decoration__label-round" style="background-color:#eb4293"><span>special offre</span></div></div>
                     {% endif %}
                 </div>
+                {% if voyage.nbrplacetotal > voyage.nbrplacereser and voyage.datedebut|date('Ymd') > "now"|date('Ymd') and reser is empty %}
                 <a name="tourBooking"></a>
                 <div class="form-block form-block--style3 form-block--tour-booking block-after-indent">
-                    <h3 class="form-block__title">Book the tour</h3>	<form id="tourBookingForm" method="POST">
-                        <div class="form-block__item form-block__field-width-icon form-block__field--name"><input name="name" value="" type="text" placeholder="Name"><i class="td-user"></i></div>
-                        <div class="form-block__item form-block__field-width-icon form-block__field--email"><input name="email" value="" type="text" placeholder="Email address"><i class="td-email-2"></i></div>
-                        <div class="form-block__item form-block__field-width-icon form-block__field--phone"><input name="phone" value="" type="text" placeholder="Phone number"><i class="td-phone-1"></i></div>
+                    <h3 class="form-block__title">Réserver circuit</h3>
+                    <form id="tourBookingForm" method="POST" action="{{ path('paiementpath',{'circuit': voyage.id}) }}" >
                         <div class="form-block__item form-block__field-width-icon form-block__field--add-to-cart"><input name="add-to-cart" value="117" type="hidden"></div>
-
-                        <div class="form-block__item form-block__field-width-icon form-block__field--quantity"><input min="1" name="quantity" value="1" type="number" placeholder="Quantity"><i class="td-user-plus"></i></div>
-
-                        <div class="form-block__price-details" data-role="price-explanation"></div>
-
-                        <input class="form-block__button" type="submit" value="Book now">	</form>
+                      <div data-ng-app="" data-ng-init="qte=1;price={{  voyage.prix }} ">
+                        <div  class="form-block__item form-block__field-width-icon form-block__field--quantity">
+                            <input ng-model="qte" min="1" name="quantity" value="1" type="number" placeholder="Quantity" max="{% set total= voyage.nbrplacetotal-voyage.nbrplacereser %} {% if total<3 %}{{ total }}{% else %}3 {% endif %}"><i class="td-user-plus"></i>
+                        </div>
+                        {% verbatim %}
+                        <div class="form-block__price-details" data-role="price-explanation">{{qte}} * <span class="woocommerce-Price-currencySymbol">&#36;</span>{{price}} = <span class="woocommerce-Price-currencySymbol">&#36;</span>{{qte*price}}</div>
+                        {% endverbatim %}
+                        <input class="form-block__button" type="submit" value="Reserver">
+                      </div>
+                    </form>
                 </div>
+                {% endif %}
                 {{ include("appboxvoyageBundle::treevoyagewest.html.twig") }}
 
             </aside>

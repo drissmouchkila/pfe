@@ -1,0 +1,138 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+    <style>/*font Awesome http://fontawesome.io*/
+        @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+        /*Comment List styles*/
+        .comment-list .row {
+            margin-bottom: 0px;
+        }
+        .comment-list .panel .panel-heading {
+            padding: 4px 15px;
+            position: absolute;
+            border:none;
+            /*Panel-heading border radius*/
+            border-top-right-radius:0px;
+            top: 1px;
+        }
+        .comment-list .panel .panel-heading.right {
+            border-right-width: 0px;
+            /*Panel-heading border radius*/
+            border-top-left-radius:0px;
+            right: 16px;
+        }
+        .comment-list .panel .panel-heading .panel-body {
+            padding-top: 6px;
+        }
+        .comment-list figcaption {
+            /*For wrapping text in thumbnail*/
+            word-wrap: break-word;
+        }
+        /* Portrait tablets and medium desktops */
+        @media (min-width: 768px) {
+            .comment-list .arrow:after, .comment-list .arrow:before {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-color: transparent;
+            }
+            .comment-list .panel.arrow.left:after, .comment-list .panel.arrow.left:before {
+                border-left: 0;
+            }
+            /*****Left Arrow*****/
+            /*Outline effect style*/
+            .comment-list .panel.arrow.left:before {
+                left: 0px;
+                top: 30px;
+                /*Use boarder color of panel*/
+                border-right-color: inherit;
+                border-width: 16px;
+            }
+            /*Background color effect*/
+            .comment-list .panel.arrow.left:after {
+                left: 1px;
+                top: 31px;
+                /*Change for different outline color*/
+                border-right-color: #FFFFFF;
+                border-width: 15px;
+            }
+            /*****Right Arrow*****/
+            /*Outline effect style*/
+            .comment-list .panel.arrow.right:before {
+                right: -16px;
+                top: 30px;
+                /*Use boarder color of panel*/
+                border-left-color: inherit;
+                border-width: 16px;
+            }
+            /*Background color effect*/
+            .comment-list .panel.arrow.right:after {
+                right: -14px;
+                top: 31px;
+                /*Change for different outline color*/
+                border-left-color: #FFFFFF;
+                border-width: 15px;
+            }
+        }
+        .comment-list .comment-post {
+            margin-top: 6px;
+        }
+    </style>
+{% endblock %}
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Validation des paiements</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('adminpath') }}">Index</a></li>
+                <li class="active">Validation des paiement</li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <section class="comment-list">
+                    {% for reser in reservation %}
+                        {% for v in v %}
+                      {% if v.id == reser.voyage %}
+                        <article class="row">
+                                <div class="panel panel-default arrow left">
+                                    <div class="panel-body" style="width: 800px">
+                                        <header class="text-left">
+                                            <div class="comment-user"><i class="fa fa-user"></i> {{ reser.nom }} {{ reser.prenom }}</div>
+                                            <div class="comment-user"><i class="fa fa-envelope"></i> {{ reser.email }}</div>
+                                            <div class="comment-user"><i class="fa fa-phone-square"></i> {{  reser.telephone}}</div>
+                                            <time class="comment-date" ><i class="fa fa-clock-o"></i> {{ reser.datemettreres|date("d/m/Y g:ia") }}</time>
+                                            <div class="comment-user"><i class="fa fa-credit-card"></i> {{ reser.typepaiement }}</div>
+                                            {% for voyage in voyage %}
+                                                {% if voyage.id == reser.voyage %}
+                                                    <div class="comment-user"><i class="fa fa-users"></i> {{ voyage.nbrplacereser }} sur{{ voyage.nbrplacetotal}}</div>
+                                                    <div class="comment-user"><i class="fa fa-bus"></i> {{ voyage.titre }}</div>
+                                                    <div class="comment-user"><i class="fa fa-money"></i> {{ voyage.prix }}</div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </header>
+                                        <p class="text-right">
+                                            {% if reser.typepaiement == 'Par cheque' %}
+                                                <a href="http://localhost:81/pfe/web/bundles/appboxvoyageBundle/recu/{{ reser.brochure }}" class="btn btn-default btn-sm"><i class="fa fa-envelope"></i> Consulter recu</a>
+                                            {% endif %}
+                                            <a href="{{ path('nonvaliderpaiementpath',{'id':reser.id}) }}" class="btn btn-default btn-sm"><i class="fa fa-trash"></i> non valider paiement</a>
+                                            <a href="{{ path('validerpaiementpath',{'id':reser.id}) }}" class="btn btn-default btn-sm"><i class="fa fa-check"></i> Valider paiement</a>
+                                        </p>
+                                    </div>
+                                </div>
+                        </article>
+                      {% endif %}
+                          {% endfor %}
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

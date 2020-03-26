@@ -14,8 +14,7 @@ class galerieRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('g');
         $qb->where('g.voyage = :id')
-            ->setParameter('id',$id)
-            ->andWhere('g.principal = 0');
+            ->setParameter('id',$id);
         return $qb->getQuery()->getResult();
 
     }

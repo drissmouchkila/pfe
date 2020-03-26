@@ -1,0 +1,513 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/icheck/skins/all.css')}}" rel="stylesheet">
+
+    <!-- Wizard CSS -->
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/css/wizard.css') }}" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    <!-- Typehead CSS -->
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/typeahead.js-master/dist/typehead-min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/css/dropify.min.css')}}">
+
+    <!-- Dropzone css -->
+    <link href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropzone-master/dist/dropzone.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+{% block contenaire %}
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Ajouter circuit Week-end</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('adminpath') }}">Index</a></li>
+            <li class="active">Ajouter circuit Week-end</li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title m-b-0">Ajouter week-End</h3>
+                <form action="" method="post" class="form-horizontal" id="validation">
+                <div id="exampleValidator" class="wizard">
+                    <ul class="wizard-steps" role="tablist">
+                        <li class="active" role="tab">
+                            <h4><span><i class="ti-desktop"></i></span>Description</h4>
+                        </li>
+                        <li role="tab">
+                            <h4><span><i class="ti-check-box"></i></span>Prgramme</h4>
+                        </li>
+                        <li role="tab">
+                            <h4><span><i class="ti-gallery"></i></span>Photo</h4>
+                        </li>
+                    </ul>
+                    <div class="wizard-content">
+                            <div class="wizard-pane active" role="tabpanel">
+                                <div class="form-body">
+                                    <h3 class="box-title">Information sur circuit</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Nom de circuit</label>
+                                                <input name="nomcircuit" type="text" id="firstName" class="form-control" placeholder=""> </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">nombre de place</label>
+                                                <input name="nbrplace" type="number" id="nomredeplace" class="form-control" placeholder=""> </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Categorie</label>
+                                                <select  name="categorie" class="form-control" data-placeholder="Choose a Category" tabindex="1">
+                                                    <option value="Croisieres">Croisieres</option>
+                                                    <option value="Randonnee">Randonnee</option>
+                                                    <option value="En marchant">En marchant</option>
+                                                    <option value="Sport">Sport</option>
+                                                    <option value="Air rides">Air rides</option>
+                                                    <option value="faune">faune</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Destination</label>
+                                                <div id="scrollable-dropdown-menu">
+                                                    <input name="destination" class="typeahead form-control" type="text" placeholder="Pays">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Prix</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="ti-money"></i></div>
+                                                    <input name="prix" type="text" class="form-control" id="exampleInputuname" placeholder="153"> </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>minumum age</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                                    <input name="minage" type="number" class="form-control" id="exampleInputuname" > </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>lieu de Depart/Retour </label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="ti-home"></i></div>
+                                                    <input name="lieu" type="text" class="form-control" id="exampleInputuname" > </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <textarea name="description" class="form-control" rows="4"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="col-md-6 control-label">Date debut</label>
+                                            <label class="col-md-6 control-label">Date Fin</label>
+                                            <div class="input-daterange input-group" id="date-range">
+                                                <input name="datedebut" type="text" class="form-control" name="start" />
+                                                <span class="input-group-addon bg-info b-0 text-white">A</span>
+                                                <input name="datefin" type="text" class="form-control" name="end" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3 class="box-title m-t-40">OPTION CIRCUIT</h3>
+                                            <label>Ajouter option</label>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <ul class="icheck-list">
+                                                        <li>
+                                                            <input name="c1" value="Billet d'avion" type="checkbox" class="check" data-checkbox="icheckbox_line-blue" data-label="Billet d'avion">
+                                                        </li>
+                                                        <li>
+                                                            <input name="c2" value="Billet d'avion" type="checkbox" class="check"  data-checkbox="icheckbox_line-blue" data-label="Billet d'avion">
+                                                        </li>
+                                                        <li>
+                                                            <input name="c3" value="Transport local" type="checkbox" class="check"  data-checkbox="icheckbox_line-blue" data-label="Transport local" >
+                                                        </li>
+                                                        <li>
+                                                            <input name="c4" value="Hebergement" type="checkbox" class="check"  data-checkbox="icheckbox_line-blue" data-label="Hebergement" >
+                                                        </li>
+                                                        <li>
+                                                            <input name="c5" value="Frais d'entree" type="checkbox" class="check"  data-checkbox="icheckbox_line-blue" data-label="Frais d'entree" >
+                                                        </li>
+                                                        <li>
+                                                            <input name="c6" value="guide gratuit" type="checkbox" class="check" data-checkbox="icheckbox_line-blue" data-label="guide gratuit" >
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="wizard-pane" role="tabpanel">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Programme de Samedi</label>
+                                    <div class="col-xs-5">
+                                        <div class="form-group">
+                                            <textarea name="samedi" class="form-control" rows="15" placeholder="Enter text ..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Programme de Dimanche</label>
+                                    <div class="col-xs-5">
+                                        <div class="form-group">
+                                            <textarea name="dimanche" class="form-control" rows="15" placeholder="Enter text ..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wizard-pane" role="tabpanel">
+                                <div class="form-group">
+                                    <h3 class="box-title m-b-0">Ajoutee les images </h3>
+                                    <div action="{{ path('dropezone2') }}" class="dropzone fallback" id="form_snippet_image">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <!-- Form Wizard JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/dist/jquery-wizard.min.js')}}"></script>
+    <!-- FormValidation -->
+    <link rel="stylesheet" href="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.css')}}">
+    <!-- FormValidation plugin and the class supports validating Bootstrap form -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/js/jasny-bootstrap.js')}}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/moment/moment.js')}}"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js')}}"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js')}}"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/timepicker/bootstrap-timepicker.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <!-- Typehead Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/typeahead.js-master/dist/typeahead-init.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/icheck/icheck.min.js')}}"></script>
+    <!-- Dropzone Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropzone-master/dist/dropzone.js')}}"></script>
+
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/icheck/icheck.init.js')}}"></script>
+
+
+    <!-- jQuery file upload -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
+
+    <!-- Dropzone Plugin JavaScript -->
+    <script src="{{ asset('bundles/appboxadminbundle/plugins/bower_components/dropzone-master/dist/dropzone.js') }}"></script>
+    <script>
+        var _actionToDropZone = $("#form_snippet_image").attr('action');
+
+        //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#form_snippet_image", {
+            url: _actionToDropZone,
+            maxFiles: null
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Basic
+            $('.dropify').dropify();
+
+            // Translated
+            $('.dropify-fr').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'Désolé, le fichier trop volumineux'
+                }
+            });
+
+            // Used events
+            var drEvent = $('#input-file-events').dropify();
+
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+
+            drEvent.on('dropify.errors', function(event, element) {
+                console.log('Has Errors');
+            });
+
+            var drDestroy = $('#input-file-to-destroy').dropify();
+            drDestroy = drDestroy.data('dropify')
+            $('#toggleDropify').on('click', function(e) {
+                e.preventDefault();
+                if (drDestroy.isDropified()) {
+                    drDestroy.destroy();
+                } else {
+                    drDestroy.init();
+                }
+            })
+        });
+    </script>
+    <script>
+        // Clock pickers
+        $('#single-input').clockpicker({
+            placement: 'bottom',
+            align: 'left',
+            autoclose: true,
+            'default': 'now'
+
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+
+        })
+                .find('input').change(function() {
+                    console.log(this.value);
+                });
+
+        $('#check-minutes').click(function(e) {
+            // Have to stop propagation here
+            e.stopPropagation();
+            input.clockpicker('show')
+                    .clockpicker('toggleView', 'minutes');
+        });
+        if (/mobile/i.test(navigator.userAgent)) {
+            $('input').prop('readOnly', true);
+        }
+        // Colorpicker
+
+        $(".colorpicker").asColorPicker();
+        $(".complex-colorpicker").asColorPicker({
+            mode: 'complex'
+        });
+        $(".gradient-colorpicker").asColorPicker({
+            mode: 'gradient'
+        });
+        // Date Picker
+        jQuery('.mydatepicker, #datepicker').datepicker();
+        jQuery('#datepicker-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        jQuery('#date-range').datepicker({
+            toggleActive: true
+        });
+        jQuery('#datepicker-inline').datepicker({
+
+            todayHighlight: true
+        });
+
+        // Daterange picker
+
+        $('.input-daterange-datepicker').daterangepicker({
+            buttonClasses: ['btn', 'btn-sm'],
+            applyClass: 'btn-danger',
+            cancelClass: 'btn-inverse'
+        });
+        $('.input-daterange-timepicker').daterangepicker({
+            timePicker: true,
+            format: 'MM/DD/YYYY h:mm A',
+            timePickerIncrement: 30,
+            timePicker12Hour: true,
+            timePickerSeconds: false,
+            buttonClasses: ['btn', 'btn-sm'],
+            applyClass: 'btn-danger',
+            cancelClass: 'btn-inverse'
+        });
+        $('.input-limit-datepicker').daterangepicker({
+            format: 'MM/DD/YYYY',
+            minDate: '06/01/2015',
+            maxDate: '06/30/2015',
+            buttonClasses: ['btn', 'btn-sm'],
+            applyClass: 'btn-danger',
+            cancelClass: 'btn-inverse',
+            dateLimit: {
+                days: 6
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        (function() {
+            $('#exampleValidator').wizard({
+                onInit: function() {
+                    $('#validation').formValidation({
+                        framework: 'bootstrap',
+                        fields: {
+                            nomcircuit: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire le nom de cicuit'
+                                    },
+                                    regexp: {
+                                        regexp: /^[a-zA-Z\s]+$/,
+                                        message: 'le nom de circuit contient seulement des letters'
+                                    }
+                                }
+                            },
+                            nbrplace: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire le nombre de place'
+                                    }
+                                }
+                            },
+                            destination: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire la destination'
+                                    },
+                                    regexp: {
+                                        regexp: /^[a-zA-Z\s]+$/,
+                                        message: 'la destination contient seulement des letters'
+                                    }
+                                }
+                            },
+                            prix: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire le prix'
+                                    },
+                                    regexp: {
+                                        regexp: /^[0-9\.]+$/,
+                                        message: 'la destination contient seulement des letters'
+                                    }
+                                }
+                            },
+                            minage: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire le min age'
+                                    }
+                                }
+                            },
+                            lieu: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire le lieu'
+                                    },
+                                    regexp: {
+                                        regexp: /^[a-zA-Z\s]+$/,
+                                        message: 'le lieu circuit contient seulement des letters'
+                                    }
+                                }
+                            },
+                            description: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'Remplire la description'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                },
+                validator: function() {
+                    var fv = $('#validation').data('formValidation');
+
+                    var $this = $(this);
+
+                    // Validate the container
+                    fv.validateContainer($this);
+
+                    var isValidStep = fv.isValidContainer($this);
+                    if (isValidStep === false || isValidStep === null) {
+                        return false;
+                    }
+
+                    return true;
+                },
+                onFinish: function() {
+                    $('#validation').submit();
+                    alert('finish');
+                }
+            });
+
+            $('#accordion').wizard({
+                step: '[data-toggle="collapse"]',
+
+                buttonsAppendTo: '.panel-collapse',
+
+                templates: {
+                    buttons: function() {
+                        var options = this.options;
+                        return '<div class="panel-footer"><ul class="pager">' +
+                                '<li class="previous">' +
+                                '<a href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a>' +
+                                '</li>' +
+                                '<li class="next">' +
+                                '<a href="#' + this.id + '" data-wizard="next" role="button">' + options.buttonLabels.next + '</a>' +
+                                '<a href="#' + this.id + '" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a>' +
+                                '</li>' +
+                                '</ul></div>';
+                    }
+                },
+
+                onBeforeShow: function(step) {
+                    step.$pane.collapse('show');
+                },
+
+                onBeforeHide: function(step) {
+                    step.$pane.collapse('hide');
+                },
+
+                onFinish: function() {
+                    alert('finish');
+                }
+            });
+        })();
+        </script>
+
+{% endblock %}

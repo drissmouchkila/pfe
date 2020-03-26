@@ -2,7 +2,9 @@
 
 namespace appbox\voyageBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Tests\StringableObject;
 
 /**
@@ -34,7 +36,7 @@ class voyage
      *
      * @ORM\Column(name="nbrplacereser", type="integer")
      */
-    private $nbrplacereser;
+    private $nbrplacereser = 0;
 
     /**
      * @var \DateTime
@@ -55,7 +57,7 @@ class voyage
      *
      * @ORM\Column(name="promo", type="boolean")
      */
-    private $promo;
+    private $promo = false;
 
     /**
      * @var \String
@@ -63,6 +65,11 @@ class voyage
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * @ORM\Column(name="typed", type="string")
+     */
+    private $typed ="Normal";
 
     /**
      * @var \int
@@ -95,7 +102,7 @@ class voyage
     /**
      * @var float
      *
-     * @ORM\Column(name="newprix",type="float")
+     * @ORM\Column(name="newprix",type="float",nullable=true)
      */
      private $newprix;
 
@@ -110,14 +117,57 @@ class voyage
      * @var string
      *
      * @ORM\column(name="image",type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $image;
     /**
      * @var string
      *
-     * @ORM\Column(name="typepromo",type="string",nullable=false)
+     * @ORM\Column(name="typepromo",type="string",nullable=true)
      */
     private $typepromo;
+    /**
+     * @ORM\Column(name="totalargentvoyage",type="integer")
+     */
+    private $totalargentvoyage;
+    /**
+     * @ORM\Column(name="lieu",type="string")
+     */
+    private $lieu;
+    /**
+     * @ORM\Column(name="minage",type="integer")
+     */
+    private $minage;
+    /**
+     * @ORM\Column(name="employee", type="integer")
+     */
+    private $employee;
+
+    /**
+     * @ORM\Column(name="nbevue", type="integer")
+     */
+    private $nbrvue;
+
+    /**
+     * @ORM\Column(name="nbrcommentaires", type="integer")
+     */
+    private $nbrcommentaires;
+
+    /**
+     * @ORM\Column(name="etat", type="string")
+     */
+    private $etat ;
+
+
+
+    public function __construct(){
+        $this->totalargentvoyage = 0;
+        $this->nbrvue = 0;
+        $this->nbrcommentaires = 0;
+        $this->etat = "en cours";
+    }
     /**
      * Get id
      *
@@ -462,5 +512,205 @@ class voyage
     public function getTypepromo()
     {
         return $this->typepromo;
+    }
+    public function increservation($qte){
+        $this->nbrplacereser+=$qte;
+    }
+    public function decreservation($qte){
+        $this->nbrplacereser-=$qte;
+    }
+
+
+    /**
+     * Set totalargentvoyage
+     *
+     * @param integer $totalargentvoyage
+     *
+     * @return voyage
+     */
+    public function setTotalargentvoyage($totalargentvoyage)
+    {
+        $this->totalargentvoyage = $totalargentvoyage;
+
+        return $this;
+    }
+
+    /**
+     * Get totalargentvoyage
+     *
+     * @return integer
+     */
+    public function getTotalargentvoyage()
+    {
+        return $this->totalargentvoyage;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param integer $employee
+     *
+     * @return voyage
+     */
+    public function setEmployee($employee)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return integer
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+
+    /**
+     * Set nbrvue
+     *
+     * @param integer $nbrvue
+     *
+     * @return voyage
+     */
+    public function setNbrvue($nbrvue)
+    {
+        $this->nbrvue = $nbrvue;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrvue
+     *
+     * @return integer
+     */
+    public function getNbrvue()
+    {
+        return $this->nbrvue;
+    }
+
+    /**
+     * Set nbrcommentaires
+     *
+     * @param integer $nbrcommentaires
+     *
+     * @return voyage
+     */
+    public function setNbrcommentaires($nbrcommentaires)
+    {
+        $this->nbrcommentaires = $nbrcommentaires;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrcommentaires
+     *
+     * @return integer
+     */
+    public function getNbrcommentaires()
+    {
+        return $this->nbrcommentaires;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param string $etat
+     *
+     * @return voyage
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return string
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+
+    /**
+     * Set typed
+     *
+     * @param string $typed
+     *
+     * @return voyage
+     */
+    public function setTyped($typed)
+    {
+        $this->typed = $typed;
+
+        return $this;
+    }
+
+    /**
+     * Get typed
+     *
+     * @return string
+     */
+    public function getTyped()
+    {
+        return $this->typed;
+    }
+
+    /**
+     * Set lieu
+     *
+     * @param string $lieu
+     *
+     * @return voyage
+     */
+    public function setLieu($lieu)
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    /**
+     * Get lieu
+     *
+     * @return string
+     */
+    public function getLieu()
+    {
+        return $this->lieu;
+    }
+
+    /**
+     * Set minage
+     *
+     * @param integer $minage
+     *
+     * @return voyage
+     */
+    public function setMinage($minage)
+    {
+        $this->minage = $minage;
+
+        return $this;
+    }
+
+    /**
+     * Get minage
+     *
+     * @return integer
+     */
+    public function getMinage()
+    {
+        return $this->minage;
     }
 }

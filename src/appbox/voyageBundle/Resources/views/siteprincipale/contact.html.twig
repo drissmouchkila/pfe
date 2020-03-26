@@ -1,9 +1,12 @@
-{% extends "appboxvoyageBundle::basepage.html.twig" %}
+{% extends "::basepage.html.twig" %}
+{% block title %}Contact{% endblock %}
+
 {% block contenaire %}
     <div class="header-section header-section--with-banner parallax-section parallax-section--header">
-        <div class="parallax-image" style="background-image:url(../../cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/07/san-francisco.jpg); background-repeat:repeat;"></div>	<div class="container">
-            <div class="breadcrumbs"><ul><li><a href="../index.html">Home</a></li><li>Contact Us</li></ul></div>		<div class="header-section__content">
-                <h1 class="header-section__title">Contact Us</h1><p class="header-section__description">We&#039;d love to hear from you!</p>		</div>
+        <div class="parallax-image" style="background-image:url({{ asset('bundles/appboxvoyageBundle/image/san-francisco.jpg') }}); background-repeat:repeat;"></div>	<div class="container">
+            <div class="breadcrumbs"><ul><li><a href="{{ path('indexpath') }}">Home</a></li><li>Contact</li></ul></div>		<div class="header-section__content">
+                <h1 class="header-section__title">Contact</h1><p class="header-section__description">Nous aimerions recevoir de vos nouvelles!
+                </p>		</div>
         </div>
     </div>
     <div class="container layout-container margin-top margin-bottom">
@@ -11,13 +14,12 @@
         <div class="page-single">
             <main class="page-single__content" role="main">
                 <div class="vc_row wpb_row vc_row-fluid margin-bottom"><div class="wpb_column vc_column_container vc_col-sm-12 vc_col-md-6"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="title">
-                                    <div class="title__subtitle">Would like to talk?</div>
                                     <h3 class="title__primary">Contact Details</h3>
                                 </div>
 
                                 <div class="wpb_text_column wpb_content_element ">
                                     <div class="wpb_wrapper">
-                                        <p>If you have a story to share or a question that has not been answered on our website, please get in touch with us via contact details listed below or fill in the form on the right.</p>
+                                        <p>Si vous avez une histoire à partager ou une question qui n'a pas été répondu sur notre site, contactez-nous via les coordonnées ci-dessous ou complétez le formulaire .</p>
 
                                     </div>
                                 </div>
@@ -43,29 +45,35 @@
                                 </div>
                             </div></div></div><div class="wpb_column vc_column_container vc_col-sm-12 vc_col-md-6"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="vc_empty_space  visible-sm visible-xs"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
                                 <div class="title">
-                                    <div class="title__subtitle">Have a question?</div>
-                                    <h3 class="title__primary">Get in Touch</h3>
+                                    <div class="title__subtitle">Une question?</div>
+                                    <h3 class="title__primary">Entrer en contact</h3>
                                 </div>
-                                <div role="form" class="wpcf7" id="wpcf7-f162-p9-o1" lang="en-US" dir="ltr">
                                     <div class="screen-reader-response"></div>
-                                    <form action="http://adventure-tours.themedelight.com/contact-us/#wpcf7-f162-p9-o1" method="post" class="wpcf7-form" novalidate="novalidate">
-                                        <div style="display: none;">
-                                            <input type="hidden" name="_wpcf7" value="162" />
-                                            <input type="hidden" name="_wpcf7_version" value="4.4" />
-                                            <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                                            <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f162-p9-o1" />
-                                            <input type="hidden" name="_wpnonce" value="c1ac61b6c9" />
-                                        </div>
+                                    <form action="" method="post">
                                         <div class="form-contact">
                                             <div class="form-contact__fields-short">
-                                                <div class="form-contact__item-short"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Your name" /></span></div>
-                                                <div class="form-contact__item-short"><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email" /></span></div>
+                                                <div class="form-contact__item-short">
+                                                        <input type="text" name="nom" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Your name" required />
+                                                </div>
+                                                <div class="form-contact__item-short">
+                                                        <input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email" required />
+                                                    </div>
                                             </div>
-                                            <div class="form-contact__fields-short"><span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Subject" /></span></div>
-                                            <p>    <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="0" rows="0" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea></span><br />
-                                                <button type="submit" class="button button--style1 button--with-icon"><i class="fa fa-paper-plane"></i>Send</button>
-                                            </p></div>
-                                        <div class="wpcf7-response-output wpcf7-display-none"></div></form></div></div></div></div></div><div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><div id="googleMapCanvas1" class="google-map stick-to-bottom"></div></div></div></div></div>
+                                            <div class="form-contact__fields-short">
+                                                    <input name="objet" type="text"  value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Subject" required/>
+                                            </div>
+                                            <p>
+                                                <textarea name="text" cols="0" rows="0" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message" required></textarea>
+                                                <br />
+                                                <button type="submit" class="button button--style1 button--with-icon"><i class="fa fa-paper-plane"></i>Envoyer</button>
+                                            </p>
+                                        </div>
+                                    </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
 

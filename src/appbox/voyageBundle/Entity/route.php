@@ -35,12 +35,6 @@ class route
      */
     private $description;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
 
     /**
      * @var int

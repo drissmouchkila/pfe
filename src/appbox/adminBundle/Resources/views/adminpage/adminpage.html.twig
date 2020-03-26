@@ -1,0 +1,209 @@
+{% extends "::Baseadmin.html.twig" %}
+    {% block style %}
+        <link id="bs-css" href="{{ asset('bundles/appboxadminBundle/css/bootstrap-cerulean.min.css')}}" rel="stylesheet">
+        <link id="bs-css" href="{{ asset('bundles/appboxadminBundle/css/boxes.min.css')}}" rel="stylesheet">
+    {% endblock %}
+{% block css %}
+    <link href="{{ asset('bundles/appboxadminBundle/css/charisma-app.css')}}" rel="stylesheet">
+
+{% endblock %}
+{% block contenaire %}
+
+        <div class="white-box" >
+            <div id="page-inner">
+
+                <div class="row text-center pad-top">
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('inboxpath') }}" >
+                           <i class="fa fa-envelope-o fa-5x"></i>
+                      <h4>MailBox</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('tousvoyagepath') }}" >
+ <i class="fa fa-bus fa-5x"></i>
+                      <h4>Circuis en cours</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('archivevoyagepath') }}" >
+ <i class="fa fa-archive fa-5x"></i>
+                      <h4>Archive des circuits</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('ajoutervoyagepath') }}" >
+ <i class="fa fa-plus-square-o fa-5x"></i>
+                      <h4>création d'un circuit</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('mettrevoyageenpromovoyagepath') }}" >
+ <i class="fa fa-tags fa-5x"></i>
+                      <h4>Rendre circuit en promo</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('tousblogpath') }}" >
+ <i class="fa fa-clipboard fa-5x"></i>
+                      <h4>liste des Articles</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+              </div>
+                 <!-- /. ROW  -->
+                <div class="row text-center pad-top">
+
+                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('ajouterblogpath') }}" >
+ <i class="fa fa-newspaper-o fa-5x"></i>
+                      <h4>Création d'un article</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('nouveaureservationpath') }}" >
+ <i class="fa fa-ticket fa-5x"></i>
+                      <h4>validation des réservations</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('ajouterreservationpath') }}" >
+ <i class="fa fa-plus-square fa-5x"></i>
+                      <h4>création d'une réservation</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('touscommentaires') }}" >
+ <i class="fa fa-comments fa-5x"></i>
+                      <h4>Tous les commentaires </h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('nouveaucommentaire') }}" >
+ <i class="fa fa-wechat fa-5x"></i>
+                      <h4>Les nouveaux commentaires</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                    {% if is_granted('ROLE_SUPER_ADMIN')  %}
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('tousclientpath') }}" >
+ <i class="fa fa-users fa-5x"></i>
+                      <h4>Liste des clients</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                    {% endif %}
+              </div>
+                  <!-- /. ROW  -->
+                {% if is_granted('ROLE_SUPER_ADMIN')  %}
+                 <div class="row text-center pad-top">
+
+
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('tousemployeepath') }}" >
+<img width="100px" src="{{ asset('bundles/appboxvoyageBundle/image/employee.png') }}">
+                               <h4>Liste des agents</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('exemployepath') }}" >
+                               <img width="100px" src="{{ asset('bundles/appboxvoyageBundle/image/exemployee.png') }}">
+                         <h4>Liste des Ex Agents</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('ajouteremployee') }}" >
+                               <img width="100px" src="{{ asset('bundles/appboxvoyageBundle/image/emplyeeplus.jpg') }}">
+
+                               <h4>création d'un agent</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('listnewsletterpath') }}" >
+ <i class="fa fa-envelope fa-5x"></i>
+                      <h4>Liste des utlisateurs de newsletters</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                      <div class="div-square">
+                           <a href="{{ path('Envoyernewsletter') }}" >
+ <i class="fa fa-mail-forward fa-5x"></i>
+                      <h4>Envoyer newsletter</h4>
+                      </a>
+                      </div>
+
+
+                  </div>
+              </div>
+                 <!-- /. ROW  -->
+                {% endif %}
+            </div>
+             <!-- /. PAGE INNER  -->
+        </div>
+         <!-- /. PAGE WRAPPER  -->
+
+{% endblock %}

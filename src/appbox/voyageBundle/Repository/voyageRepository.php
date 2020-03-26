@@ -20,6 +20,14 @@ class voyageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
 
     }
+    public function lastid()
+    {
+        $qb = $this->createQueryBuilder('v');
+        $qb->orderBy('v.id', 'desc')
+            ->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+
+    }
     public function indexpromovoyage()
     {
         $qb = $this->createQueryBuilder('v');
@@ -94,6 +102,7 @@ class voyageRepository extends \Doctrine\ORM\EntityRepository
 
         return $paginator;
     }
+
     public function paginationLastmunite($page,$nbrmaxvoyage){
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
@@ -106,8 +115,35 @@ class voyageRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('v')
-            ->where("v.typepromo = 'Last Munite' ")
+            ->where("v.typed = 'Dernier munite' ")
             ->orderBy('v.datefin', 'ASC');
+
+        $query = $qb->getQuery();
+
+        $premierResultat = ($page - 1) * $nbrmaxvoyage;
+        $query->setFirstResult($premierResultat)->setMaxResults($nbrmaxvoyage);
+        $paginator = new Paginator($query);
+
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+
+        return $paginator;
+    }
+    public function paginationweekend($page,$nbrmaxvoyage){
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        $qb = $this->createQueryBuilder('v')
+            ->where("v.typed = 'Week-end' ")
+            ->orderBy('v.datedebut', 'DESC');
 
         $query = $qb->getQuery();
 
@@ -166,7 +202,7 @@ class voyageRepository extends \Doctrine\ORM\EntityRepository
              $qb->where('v.titre LIKE :nom')->setParameter('nom','%'.$nom.'%');
          }if($destination){
             $qb->where('v.destination = :nom')->setParameter('nom',$destination);
-        }if($type){
+        }if($type ){
             $qb->where('v.type = :nom')->setParameter('nom',$type);
         }
 

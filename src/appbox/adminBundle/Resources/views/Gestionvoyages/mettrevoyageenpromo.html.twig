@@ -1,0 +1,131 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+{% endblock %}
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Mettre circuit en promo</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('adminpath') }}">Index</a></li>
+                <li class="active">Mettre circuit en promo</li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Circuit</th>
+                            <th>Etat</th>
+                            <th>Prix</th>
+                            <th>nombre de Réservation</th>
+                            <th>nombre de place </th>
+                            <th>total argent</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for voyage in voyage %}
+                            <tr>
+                                <td style="width:800px">
+                                    <i class="indicator "></i>
+                                    <a href="#demo{{ voyage.id }}" data-toggle="collapse">{{ voyage.titre }}</a>
+
+                                    <div id="demo{{ voyage.id }}" class="collapse col-md-12">
+                                        <hr>
+                                        <form action="?id={{ voyage.id }}" method="POST">
+                                            <div class="row">
+                                            <table>
+                                                <tr>
+                                                    <th>Type de promo</th>
+                                                    <th >Nouveau prix</th>
+                                                    <th ></th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                <select name="type" class="selectpicker" data-style="form-control">
+                                                        <option value="Early Bird">Early Bird</option>
+                                                        <option value="special offre">Special offre</option>
+                                                </select>
+                                                    </td>
+                                                    <td>
+                                                <div class="input-group">
+                                                   <div class="input-group-addon"><i class="ti-money"></i></div>
+                                                   <input name="prix" type="text" class="btn btn-default" id="exampleInputuname" placeholder="">
+                                                </div>
+                                                    </td>
+                                                    <td>
+                                                <input  type="submit"  id="exampleInputuname" value="enregistrer" class="btn btn-default">
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td>
+                                        <span class="label label-success font-weight-100">
+                            {{ voyage.etat }}</span>
+                                </td>
+                                <td>{{ voyage.prix }}</td>
+                                <td>{{ voyage.nbrplacereser }}</td>
+                                <td>{{ voyage.nbrplacetotal }}</td>
+                                <td>{{ voyage.totalargentvoyage }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+            $(document).ready(function() {
+                var table = $('#example').DataTable({
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 2
+                    }],
+                    "order": [
+                        [2, 'asc']
+                    ],
+                    "displayLength": 25,
+                    "drawCallback": function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({
+                            page: 'current'
+                        }).nodes();
+                        var last = null;
+                        api.column(2, {
+                            page: 'current'
+                        }).data().each(function(group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                                last = group;
+                            }
+                        });
+                    }
+                });
+                // Order by the grouping
+                $('#example tbody').on('click', 'tr.group', function() {
+                    var currentOrder = table.order()[0];
+                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                        table.order([2, 'desc']).draw();
+                    } else {
+                        table.order([2, 'asc']).draw();
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -9,8 +9,11 @@
                         {% if voyage.typepromo == 'Early Bird' %}
                             <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#01cb68">Early Bird</div></div>
                         {% endif %}
-                        {% if voyage.typepromo == 'Last Munite' %}
-                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Last Munite</div></div>
+                        {% if voyage.typed == 'Dernier munite' %}
+                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Dernier Munite</div></div>
+                        {% endif %}
+                        {% if voyage.typed == 'week-end' %}
+                            <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#d9534f">week-end</div></div>
                         {% endif %}
                         {% if voyage.typepromo == 'Special offre' %}
                             <div class="atgrid__item__angle-wrap"><div class="atgrid__item__angle" style="background-color:#eb4293">Special Offre</div></div>

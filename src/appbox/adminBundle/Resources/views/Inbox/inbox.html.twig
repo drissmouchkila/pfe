@@ -1,0 +1,59 @@
+{% extends "::Baseadmin.html.twig" %}
+
+{% block contenaire %}
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Inbox</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('adminpath') }}">Dashboard</a></li>
+                <li class="active">Inbox</li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <!-- Left sidebar -->
+        <div class="col-md-12">
+            <div class="white-box">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-lg-2 col-md-3  col-sm-12 col-xs-12 inbox-panel">
+                        <div> <a href="#" class="btn btn-custom btn-block waves-effect waves-light">Compose</a>
+                            <div class="list-group mail-list m-t-20">
+                                <a href="" class="list-group-item active">Inbox <span class="label label-rouded label-success pull-right">{{ z }}</span></a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 mail_listing">
+                        <div class="inbox-center">
+                            <table class="table table-hover">
+                                <tbody>
+                                {% for contact in contact %}
+                                <tr {% if not contact.vue %}class="unread" {% endif %}>
+                                    <td>
+                                        <div class="checkbox m-t-0 m-b-0">
+                                            <input type="checkbox">
+                                            <label for="checkbox0"></label>
+                                        </div>
+                                    </td>
+                                    <td class="hidden-xs"><i class="fa fa-star-o"></i></td>
+                                    <td class="hidden-xs">{{ contact.nom }}</td>
+                                    <td class="max-texts"> <a href="{{ path('detailinboxpath',{'id':contact.id}) }}" >{{ contact.objet }}</a></td>
+                                    <td class="text-right"> {{ contact.date|date("d/m/Y g:ia") }} </td>
+                                    <td class="hidden-xs"><a href="{{ path('suppcontact',{'id':contact.id}) }}" ><i class="fa fa-trash"></i></a></td>
+                                </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+{% endblock %}

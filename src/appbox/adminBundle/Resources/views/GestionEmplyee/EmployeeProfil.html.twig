@@ -1,0 +1,324 @@
+{% extends "::Baseadmin.html.twig" %}
+{% block css %}
+    <link rel="stylesheet" href="{{  asset('bundles/appboxadminBundle/css/style2.css')}}">
+    <link rel="stylesheet" href="{{  asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/css/dropify.min.css')}}">
+{% endblock %}
+
+{% block contenaire %}
+    <div class="row bg-title" xmlns="http://www.w3.org/1999/html">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Profile d'Agent</h4> </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="#">Index</a></li>
+                <li class="active">profile d'agent</li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- .row -->
+    <div class="row">
+        <div class="col-md-4 col-xs-12">
+            <div class="white-box">
+                <div class="user-bg">
+                    <img width="100%" alt="user" src="{{ asset('bundles/appboxvoyageBundle/image/'~employee.image) }}"> </div>
+                <div class="user-btm-box">
+                    <!-- .row -->
+                    <div class="row text-center m-t-10">
+                        <div class="col-md-6 b-r"><strong>Nom</strong>
+                            <p>{{ employee.name }}</p>
+                        </div>
+                        <div class="col-md-6"><strong>Date de debut</strong>
+                            <p>{{ employee.datederrecur|date("m/d/Y") }}</p>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <hr>
+                    <!-- .row -->
+                    <div class="row text-center m-t-10">
+                        <div class="col-md-6 b-r"><strong>Email</strong>
+                            <p>{{ user.email }}</p>
+                        </div>
+                        <div class="col-md-6"><strong>Phone</strong>
+                            <p>{{ employee.phone }}</p>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <hr>
+                    <!-- .row -->
+                    <div class="row text-center m-t-10">
+                        <div class="col-md-12"><strong>Address</strong>
+                            <p>{{ employee.adress }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <p class="text-purple"><a href="{{ employee.facebbookUrl }}"><i class="ti-facebook"></i></a></p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <p class="text-blue"><a href="{{ employee.twitterUrl }}"><i class="ti-twitter"></i></a></p>
+                      </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <p class="text-danger"><a href="{{ employee.googleUrl }}"><i class="ti-google"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <div class="white-box">
+                <!-- .tabs -->
+                <ul class="nav nav-tabs tabs customtab">
+                    <li class="active tab">
+                        <a href="#home" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Statistiques</span> </a>
+                    </li>
+                    <li class="tab">
+                        <a href="#biography" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Circuits</span> </a>
+                    </li>
+                    <li class="tab">
+                        <a href="#update" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span class="hidden-xs">Modifier</span> </a>
+                    </li>
+                </ul>
+                <!-- /.tabs -->
+                <div class="tab-content">
+                    <!-- .tabs 1 -->
+                    <div class="tab-pane active" id="home">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6 b-r"> <strong>Nom</strong>
+                                <br>
+                                <p class="text-muted">{{ employee.name }}</p>
+                            </div>
+                            <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                <br>
+                                <p class="text-muted">{{ employee.phone }}</p>
+                            </div>
+                            <div class="col-md-6 col-xs-6 b-r"> <strong>Email</strong>
+                                <br>
+                                <p class="text-muted">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="white-box" style="background-color: #edf1f5">
+                                <div class="r-icon-stats">
+                                    <i class="ti-credit-card bg-info"></i>
+                                    <div class="bodystate">
+                                        <h4>{{ employee.nbrvoyage }}</h4>
+                                        <span class="text-muted">nombre de circuit </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="white-box" style="background-color: #edf1f5">
+                                <div class="r-icon-stats">
+                                    <i class="ti-book bg-success"></i>
+                                    <div class="bodystate">
+                                        <h4>{{ employee.nbrbloc }}</h4>
+                                        <span class="text-muted">nombre de bloc </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="white-box" style="background-color: #edf1f5">
+                                <div class="r-icon-stats">
+                                    <i class="ti-money bg-inverse"></i>
+                                    <div class="bodystate">
+                                        <h4>{{ employee.totalargent}}</h4>
+                                        <span class="text-muted">total gagnant </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="white-box" style="background-color: #edf1f5">
+                                <div class="r-icon-stats">
+                                    <i class="ti-eye bg-theme"></i>
+                                    <div class="bodystate">
+                                        <h4>{{ nbrvue}}</h4>
+                                        <span class="text-muted">nombre de vues des circuits </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <hr>
+                        <h4 class="m-t-30">Effective de réservation</h4>
+                        <hr>
+                        <ul class="list-inline m-t-30 text-center">
+                            <li class="p-r-20">
+                                <h5 class="text-muted"><i class="fa fa-circle" style="color: #25a6f7;"></i> nombre de place</h5>
+                                <h4 class="m-b-0">{{ nbrperso }}</h4>
+                            </li>
+                            <li class="p-r-20">
+                                <h5 class="text-muted"><i class="fa fa-circle" style="color: #edf1f5;"></i> nombre de résérvation</h5>
+                                <h4 class="m-b-0">{{ nbrreser }}</h4>
+                            </li>
+
+                        </ul>
+
+                        <div>
+                            <canvas id="chart3" height="100"></canvas>
+                        </div>
+
+                    </div>
+                    <!-- /.tabs1 -->
+                    <!-- .tabs 2 -->
+                    <div class="tab-pane" id="biography">
+                        <div class="steamline">
+                            {% for voyage in voyages %}
+                                <div class="sl-item">
+                                    <div class="sl-left"> <img src="{{ asset('bundles/appboxvoyageBundle/image/'~employee.image) }}" alt="user" class="img-circle" /> </div>
+                                    <div class="sl-right">
+                                        <div class="m-l-40"> <a href="#" class="text-info">{{ voyage.titre }}</a> <span class="sl-date">{{ voyage.datedebut|date('d/m/Y') }}</span>
+                                            <div class="m-t-20 row">
+                                                <div class="col-md-2 col-xs-12"><img src="{{ asset('bundles/appboxvoyageBundle/image/'~voyage.image) }}" alt="user" class="img-responsive" /></div>
+                                                <div class="col-md-9 col-xs-12">
+                                                    <p>{{ voyage.description }}</p> <a href="{{ path('modcircuitpath',{'id':voyage.id}) }}" class="btn btn-success"> Modifier Circuit</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if not loop.last %}
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    <!-- /.tabs2 -->
+                    <!-- .tabs 3 -->
+                    <div class="tab-pane" id="update">
+
+                        {{ form_start(form, {'attr': {'class': 'form-material form-horizontal'}}) }}
+                            <div class="form-group">
+                                <label class="col-md-12" for="example-text">Nom
+                                </label>
+                                <div class="col-md-12">
+                                    {{ form_widget(form.name, {'attr': {'class': 'form-control','placeholder':'entre ton nom','id':'example-text'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12" for="bdate">Date de recrutement
+                                </label>
+                                <div class="col-md-12">
+                                    {{ form_widget(form.datederrecur, {'attr': {'class': 'form-control mydatepicker','placeholder':'date de recrutement','id':'bdate'}}) }}
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="col-sm-12">Sexe</label>
+                            <div class="col-sm-12">
+                                <select class="form-control">
+                                    <option>Sexe</option>
+                                    <option>Masculin</option>
+                                    <option>Feminin</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12">Profile Image</label>
+                            <div class="col-sm-12">
+                                {{ form_widget(form.image, {'attr': {'class': 'dropify','id':'input-file-now','data-default-file': asset('bundles/appboxvoyageBundle/image/'~employee.image)}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Adress</label>
+                            <div class="col-md-12">
+                                {{ form_widget(form.adress, {'attr': {'class': 'form-control ','rows':3}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12" for="url">Phone
+                            </label>
+                            <div class="col-md-12">
+                                {{ form_widget(form.phone, {'attr': {'class': 'form-control','placeholder':'Numero de telephone'}}) }}
+                            </div>
+                        </div>
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-info waves-effect waves-light m-r-10'},'label':'enregistrer'}) }}
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.tabs 3 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+{% endblock %}
+{% block javascriptepersonnaliser %}
+    <!-- jQuery file upload -->
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/dropify/dist/js/dropify.min.js')}}"></script>
+    <script src="{{ asset('bundles/appboxadminBundle/plugins/bower_components/Chart.js/chart.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+
+            // Translated
+            $('.dropify').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'Désolé, le fichier trop volumineux'
+                }
+            });
+
+            // Used events
+            var drEvent = $('#input-file-events').dropify();
+
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+
+            drEvent.on('dropify.errors', function(event, element) {
+                console.log('Has Errors');
+            });
+
+            var drDestroy = $('#input-file-to-destroy').dropify();
+            drDestroy = drDestroy.data('dropify')
+            $('#toggleDropify').on('click', function(e) {
+                e.preventDefault();
+                if (drDestroy.isDropified()) {
+                    drDestroy.destroy();
+                } else {
+                    drDestroy.init();
+                }
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+        var ctx3 = document.getElementById("chart3").getContext("2d");
+        var data3 = [
+            {
+                value: {{ nbrreser }},
+                color:"#25a6f7",
+                highlight: "#25a6f7",
+                label: "nombre de place résérver"
+            },
+            {
+                value: {{ nbrvide }},
+                color: "#edf1f5",
+                highlight: "#edf1f5",
+                label: "nombre de place vide"
+            }
+        ];
+
+        var myPieChart = new Chart(ctx3).Pie(data3,{
+            segmentShowStroke : true,
+            segmentStrokeColor : "#fff",
+            segmentStrokeWidth : 0,
+            animationSteps : 100,
+            tooltipCornerRadius: 0,
+            animationEasing : "easeOutBounce",
+            animateRotate : true,
+            animateScale : false,
+            legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){ %><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){ %><%=segments[i].label%><%}%></li><%}%></ul>",            responsive: true
+        });
+        });
+    </script>
+{% endblock %}

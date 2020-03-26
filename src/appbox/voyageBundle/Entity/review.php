@@ -55,8 +55,14 @@ class review
      */
      private $voyage;
 
+    /**
+     * @ORM\Column(name="valider",type="boolean")
+     */
+    private $valider;
+
     public function __construct(){
         $this->date = new \DateTime();
+        $this->valider = false;
     }
 
 
@@ -188,5 +194,29 @@ class review
     public function getVoyage()
     {
         return $this->voyage;
+    }
+
+    /**
+     * Set valider
+     *
+     * @param boolean $valider
+     *
+     * @return review
+     */
+    public function setValider($valider)
+    {
+        $this->valider = $valider;
+
+        return $this;
+    }
+
+    /**
+     * Get valider
+     *
+     * @return boolean
+     */
+    public function getValider()
+    {
+        return $this->valider;
     }
 }
